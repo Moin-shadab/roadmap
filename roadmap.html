@@ -1,0 +1,3161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Elite Engineer Roadmap — From Average to FAANG-Level</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg2: #111118;
+    --bg3: #16161f;
+    --bg4: #1e1e2a;
+    --border: rgba(255,255,255,0.07);
+    --border2: rgba(255,255,255,0.12);
+    --text: #e8e8f0;
+    --text2: #9898b0;
+    --text3: #5a5a72;
+    --accent: #7c6af5;
+    --accent2: #a855f7;
+    --gold: #f5a623;
+    --teal: #14b8a6;
+    --red: #f43f5e;
+    --green: #22c55e;
+    --orange: #fb923c;
+    --pink: #ec4899;
+    --font-head: 'Syne', sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+    --font-body: 'Space Mono', monospace;
+    --radius: 8px;
+    --radius-lg: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  
+  html { scroll-behavior: smooth; }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-size: 14px;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* NOISE TEXTURE OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.3;
+  }
+
+  /* GRID PATTERN */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: 
+      linear-gradient(rgba(124,106,245,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(124,106,245,0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* SIDEBAR NAV */
+  .sidebar {
+    position: fixed;
+    left: 0; top: 0; bottom: 0;
+    width: 260px;
+    background: var(--bg2);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    z-index: 100;
+    overflow-y: auto;
+  }
+
+  .sidebar-logo {
+    padding: 24px 20px 16px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .sidebar-logo .logo-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .sidebar-logo h1 {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.3;
+  }
+
+  .sidebar-logo .progress-bar {
+    margin-top: 12px;
+    height: 3px;
+    background: var(--bg4);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .sidebar-logo .progress-fill {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 2px;
+    transition: width 0.3s ease;
+  }
+
+  .sidebar-logo .progress-label {
+    font-size: 10px;
+    color: var(--text3);
+    margin-top: 4px;
+    font-family: var(--font-mono);
+  }
+
+  .sidebar-nav {
+    padding: 12px 0;
+    flex: 1;
+  }
+
+  .nav-section {
+    padding: 8px 20px 4px;
+    font-size: 9px;
+    font-family: var(--font-mono);
+    letter-spacing: 2px;
+    color: var(--text3);
+    text-transform: uppercase;
+  }
+
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 7px 20px;
+    color: var(--text2);
+    text-decoration: none;
+    font-size: 12px;
+    font-family: var(--font-mono);
+    transition: all 0.15s;
+    border-left: 2px solid transparent;
+    cursor: pointer;
+  }
+
+  .nav-link:hover, .nav-link.active {
+    color: var(--text);
+    background: rgba(124,106,245,0.08);
+    border-left-color: var(--accent);
+  }
+
+  .nav-link .dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--text3);
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+
+  .nav-link:hover .dot, .nav-link.active .dot { background: var(--accent); }
+
+  /* MAIN CONTENT */
+  .main {
+    margin-left: 260px;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* HERO */
+  .hero {
+    padding: 80px 60px 60px;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -100px; right: -100px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(124,106,245,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding: 6px 14px;
+    border: 1px solid rgba(124,106,245,0.3);
+    border-radius: var(--radius);
+    background: rgba(124,106,245,0.06);
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--accent);
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.3); }
+  }
+
+  .hero h1 {
+    font-family: var(--font-head);
+    font-size: clamp(32px, 4vw, 54px);
+    font-weight: 800;
+    line-height: 1.1;
+    color: var(--text);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 span {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 50%, var(--pink) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-subtitle {
+    font-size: 15px;
+    color: var(--text2);
+    max-width: 600px;
+    line-height: 1.8;
+    margin-bottom: 32px;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .stat-num {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+
+  /* SECTIONS */
+  .section {
+    padding: 60px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 36px;
+  }
+
+  .section-num {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--accent);
+    background: rgba(124,106,245,0.1);
+    border: 1px solid rgba(124,106,245,0.2);
+    border-radius: var(--radius);
+    padding: 4px 10px;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  .section-title {
+    font-family: var(--font-head);
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .section-subtitle {
+    font-size: 13px;
+    color: var(--text2);
+    margin-top: 6px;
+    line-height: 1.6;
+  }
+
+  /* CARDS */
+  .card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    transition: border-color 0.2s;
+  }
+
+  .card:hover { border-color: var(--border2); }
+
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 16px;
+  }
+
+  .card-title {
+    font-family: var(--font-head);
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-body {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+  }
+
+  /* TIMELINE */
+  .timeline {
+    position: relative;
+    padding-left: 32px;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 8px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--accent), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    margin-bottom: 32px;
+  }
+
+  .timeline-item::before {
+    content: '';
+    position: absolute;
+    left: -28px; top: 8px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 3px rgba(124,106,245,0.2);
+  }
+
+  .timeline-period {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+
+  .timeline-title {
+    font-family: var(--font-head);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 10px;
+  }
+
+  .timeline-desc {
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.7;
+    margin-bottom: 16px;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .checklist li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--text2);
+    line-height: 1.5;
+  }
+
+  .checklist li::before {
+    content: '→';
+    color: var(--accent);
+    font-family: var(--font-mono);
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* BADGE */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .badge-accent { background: rgba(124,106,245,0.15); color: var(--accent); }
+  .badge-gold { background: rgba(245,166,35,0.15); color: var(--gold); }
+  .badge-teal { background: rgba(20,184,166,0.15); color: var(--teal); }
+  .badge-red { background: rgba(244,63,94,0.15); color: var(--red); }
+  .badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+  .badge-orange { background: rgba(251,146,60,0.15); color: var(--orange); }
+
+  /* TABLE */
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    font-family: var(--font-mono);
+  }
+
+  .data-table th {
+    text-align: left;
+    padding: 10px 14px;
+    font-size: 11px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 1px solid var(--border);
+    font-weight: 400;
+  }
+
+  .data-table td {
+    padding: 10px 14px;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+  }
+
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table tr:hover td { background: rgba(124,106,245,0.04); }
+
+  /* CODE BLOCK */
+  .code-block {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.8;
+    overflow-x: auto;
+  }
+
+  .code-block .kw { color: var(--accent2); }
+  .code-block .str { color: var(--green); }
+  .code-block .cmt { color: var(--text3); }
+  .code-block .num { color: var(--gold); }
+  .code-block .fn { color: var(--teal); }
+
+  /* PHASE CARDS */
+  .phase-card {
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+
+  .phase-header {
+    padding: 20px 24px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.15s;
+  }
+
+  .phase-header:hover { background: rgba(255,255,255,0.02); }
+
+  .phase-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    flex-shrink: 0;
+  }
+
+  .phase-content {
+    padding: 0 24px 24px;
+    border-top: 1px solid var(--border);
+  }
+
+  /* SKILL TREE */
+  .skill-tree {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 12px;
+  }
+
+  .skill-node {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 14px 16px;
+    position: relative;
+    transition: all 0.2s;
+  }
+
+  .skill-node:hover {
+    border-color: rgba(124,106,245,0.4);
+    transform: translateY(-2px);
+  }
+
+  .skill-node-title {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .skill-node-level {
+    display: flex;
+    gap: 3px;
+    margin-bottom: 8px;
+  }
+
+  .level-dot {
+    width: 20px; height: 3px;
+    border-radius: 2px;
+    background: var(--bg4);
+  }
+
+  .level-dot.filled { background: var(--accent); }
+
+  .skill-node-desc {
+    font-size: 11px;
+    color: var(--text3);
+    line-height: 1.5;
+  }
+
+  /* RESOURCE LINKS */
+  .resource-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 16px;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    text-decoration: none;
+    color: var(--text2);
+    font-size: 13px;
+    transition: all 0.15s;
+    margin-bottom: 8px;
+  }
+
+  .resource-link:hover {
+    border-color: var(--accent);
+    color: var(--text);
+    background: rgba(124,106,245,0.06);
+  }
+
+  .resource-icon {
+    width: 32px; height: 32px;
+    border-radius: var(--radius);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+
+  .resource-meta {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .resource-name {
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  .resource-desc {
+    font-size: 11px;
+    color: var(--text3);
+  }
+
+  /* PROJECT CARDS */
+  .project-card {
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .project-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+  }
+
+  .project-level {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text3);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .project-name {
+    font-family: var(--font-head);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 8px;
+  }
+
+  .project-desc {
+    font-size: 12px;
+    color: var(--text2);
+    line-height: 1.6;
+    margin-bottom: 16px;
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .tech-tag {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 3px 8px;
+    background: var(--bg4);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    color: var(--text3);
+  }
+
+  /* DSA TABLE */
+  .dsa-topic {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+
+  .dsa-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+
+  .dsa-title {
+    font-family: var(--font-head);
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .dsa-counts {
+    display: flex;
+    gap: 8px;
+  }
+
+  .count-pill {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 4px;
+  }
+
+  .count-easy { background: rgba(34,197,94,0.1); color: var(--green); }
+  .count-med { background: rgba(251,146,60,0.1); color: var(--orange); }
+  .count-hard { background: rgba(244,63,94,0.1); color: var(--red); }
+
+  .dsa-problems {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    color: var(--text3);
+  }
+
+  .dsa-problem {
+    padding: 2px 8px;
+    background: var(--bg4);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+
+  .dsa-problem:hover { color: var(--accent); }
+
+  /* SCHEDULE */
+  .schedule-grid {
+    display: grid;
+    grid-template-columns: 80px 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+
+  .schedule-time {
+    padding: 12px 14px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    background: var(--bg3);
+  }
+
+  .schedule-activity {
+    padding: 12px 16px;
+    font-size: 13px;
+    color: var(--text2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  .schedule-grid > *:last-child,
+  .schedule-grid > *:nth-last-child(2) {
+    border-bottom: none;
+  }
+
+  /* ALERT BOX */
+  .alert {
+    padding: 14px 18px;
+    border-radius: var(--radius);
+    border-left: 3px solid;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 16px 0;
+  }
+
+  .alert-warning {
+    background: rgba(245,166,35,0.08);
+    border-color: var(--gold);
+    color: var(--text2);
+  }
+
+  .alert-danger {
+    background: rgba(244,63,94,0.08);
+    border-color: var(--red);
+    color: var(--text2);
+  }
+
+  .alert-success {
+    background: rgba(34,197,94,0.08);
+    border-color: var(--green);
+    color: var(--text2);
+  }
+
+  .alert-info {
+    background: rgba(124,106,245,0.08);
+    border-color: var(--accent);
+    color: var(--text2);
+  }
+
+  .alert-title {
+    font-family: var(--font-head);
+    font-weight: 700;
+    margin-bottom: 4px;
+    font-size: 14px;
+    color: var(--text);
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0;
+    overflow-x: auto;
+  }
+
+  .tab-btn {
+    padding: 8px 16px;
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text3);
+    background: none;
+    border: none;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+
+  .tab-btn:hover { color: var(--text2); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+
+  .tab-pane { display: none; }
+  .tab-pane.active { display: block; }
+
+  /* PROGRESS TRACKER */
+  .progress-track {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .progress-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .progress-label {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    color: var(--text2);
+    width: 180px;
+    flex-shrink: 0;
+  }
+
+  .progress-bar-track {
+    flex: 1;
+    height: 4px;
+    background: var(--bg4);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+
+  .progress-val {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    color: var(--text3);
+    width: 40px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  /* ACCORDION */
+  details summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+  }
+
+  details summary::-webkit-details-marker { display: none; }
+  details summary::after {
+    content: '+';
+    font-family: var(--font-mono);
+    font-size: 18px;
+    color: var(--text3);
+    flex-shrink: 0;
+    transition: transform 0.2s;
+  }
+  details[open] summary::after { content: '−'; }
+
+  /* FOOTER */
+  .footer {
+    padding: 40px 60px;
+    text-align: center;
+    font-size: 12px;
+    color: var(--text3);
+    font-family: var(--font-mono);
+    border-top: 1px solid var(--border);
+  }
+
+  /* MOBILE TOGGLE */
+  .mobile-toggle {
+    display: none;
+    position: fixed;
+    top: 16px; left: 16px;
+    z-index: 200;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 8px 12px;
+    border-radius: var(--radius);
+    cursor: pointer;
+    font-family: var(--font-mono);
+    font-size: 12px;
+  }
+
+  .sidebar-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 90;
+  }
+
+  @media (max-width: 900px) {
+    .sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-overlay.open { display: block; }
+    .main { margin-left: 0; }
+    .mobile-toggle { display: block; }
+    .section { padding: 40px 24px; }
+    .hero { padding: 60px 24px 40px; }
+    .hero h1 { font-size: 28px; }
+    .hero-stats { gap: 20px; }
+    .card-grid { grid-template-columns: 1fr; }
+    .skill-tree { grid-template-columns: 1fr 1fr; }
+    .schedule-grid { grid-template-columns: 60px 1fr; }
+    .progress-label { width: 120px; }
+    .footer { padding: 30px 24px; }
+    .tabs { flex-wrap: wrap; }
+  }
+
+  @media (max-width: 500px) {
+    .skill-tree { grid-template-columns: 1fr; }
+  }
+
+  /* SCROLL ANIMATION */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .animate-in {
+    animation: fadeUp 0.5s ease forwards;
+    opacity: 0;
+  }
+
+  /* COLOR ACCENTS PER SECTION */
+  .accent-gold { --section-accent: var(--gold); }
+  .accent-teal { --section-accent: var(--teal); }
+  .accent-red { --section-accent: var(--red); }
+  .accent-green { --section-accent: var(--green); }
+  .accent-pink { --section-accent: var(--pink); }
+  .accent-orange { --section-accent: var(--orange); }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  @media (max-width: 700px) {
+    .two-col { grid-template-columns: 1fr; }
+  }
+
+  a { color: var(--accent); text-decoration: none; }
+  a:hover { text-decoration: underline; }
+
+  strong { color: var(--text); font-weight: 700; }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 24px 0;
+  }
+
+  .inline-code {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    background: var(--bg4);
+    padding: 2px 6px;
+    border-radius: 4px;
+    color: var(--teal);
+  }
+
+  h3.subsection {
+    font-family: var(--font-head);
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text);
+    margin: 28px 0 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  h3.subsection::before {
+    content: '';
+    display: block;
+    width: 20px; height: 2px;
+    background: var(--accent);
+    flex-shrink: 0;
+  }
+</style>
+</head>
+<body>
+
+<!-- MOBILE TOGGLE -->
+<button class="mobile-toggle" id="mobileToggle">☰ Menu</button>
+<div class="sidebar-overlay" id="overlay"></div>
+
+<!-- SIDEBAR -->
+<nav class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <div class="logo-tag">// roadmap.v1</div>
+    <h1>Elite Engineer<br>Roadmap</h1>
+    <div class="progress-bar">
+      <div class="progress-fill" id="readProgress"></div>
+    </div>
+    <div class="progress-label" id="readLabel">0% read</div>
+  </div>
+  <div class="sidebar-nav">
+    <div class="nav-section">Situation</div>
+    <a class="nav-link active" href="#analysis"><span class="dot"></span> Current Analysis</a>
+    <a class="nav-link" href="#mindset"><span class="dot"></span> Mindset Reset</a>
+    <div class="nav-section">Roadmap</div>
+    <a class="nav-link" href="#day30"><span class="dot"></span> 30-Day Plan</a>
+    <a class="nav-link" href="#day90"><span class="dot"></span> 90-Day Plan</a>
+    <a class="nav-link" href="#month6"><span class="dot"></span> 6-Month Plan</a>
+    <a class="nav-link" href="#year1"><span class="dot"></span> 1-Year Elite</a>
+    <div class="nav-section">Daily Life</div>
+    <a class="nav-link" href="#schedule"><span class="dot"></span> Daily Routine</a>
+    <a class="nav-link" href="#weekly"><span class="dot"></span> Weekly Routine</a>
+    <div class="nav-section">Skill Trees</div>
+    <a class="nav-link" href="#dsa"><span class="dot"></span> DSA Mastery</a>
+    <a class="nav-link" href="#backend"><span class="dot"></span> Backend Track</a>
+    <a class="nav-link" href="#frontend"><span class="dot"></span> Frontend Track</a>
+    <a class="nav-link" href="#database"><span class="dot"></span> Database Track</a>
+    <a class="nav-link" href="#sysdesign"><span class="dot"></span> System Design</a>
+    <a class="nav-link" href="#erp"><span class="dot"></span> ERP Knowledge</a>
+    <a class="nav-link" href="#devops"><span class="dot"></span> DevOps Track</a>
+    <div class="nav-section">Projects</div>
+    <a class="nav-link" href="#projects"><span class="dot"></span> Project Roadmap</a>
+    <div class="nav-section">Career</div>
+    <a class="nav-link" href="#resources"><span class="dot"></span> Resources</a>
+    <a class="nav-link" href="#aiusage"><span class="dot"></span> AI Usage Rules</a>
+    <a class="nav-link" href="#debugging"><span class="dot"></span> Debugging Mastery</a>
+    <a class="nav-link" href="#interview"><span class="dot"></span> Interview Prep</a>
+    <a class="nav-link" href="#portfolio"><span class="dot"></span> Portfolio Strategy</a>
+    <a class="nav-link" href="#mistakes"><span class="dot"></span> Mistakes to Avoid</a>
+    <a class="nav-link" href="#checklist"><span class="dot"></span> Final Checklist</a>
+  </div>
+</nav>
+
+<!-- MAIN -->
+<main class="main">
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-tag">FAANG-Level Engineering Transformation</div>
+  <h1>From Legacy PHP Dev<br>to <span>Elite Engineer</span></h1>
+  <p class="hero-subtitle">A brutally practical, step-by-step roadmap to transform your skills, rebuild your fundamentals, and become a globally competitive software engineer — without AI dependency.</p>
+  <div class="hero-stats">
+    <div class="stat-item"><span class="stat-num">365</span><span class="stat-label">Days to Transform</span></div>
+    <div class="stat-item"><span class="stat-num">20+</span><span class="stat-label">Skill Tracks</span></div>
+    <div class="stat-item"><span class="stat-num">500+</span><span class="stat-label">Practice Problems</span></div>
+    <div class="stat-item"><span class="stat-num">15+</span><span class="stat-label">Build Projects</span></div>
+    <div class="stat-item"><span class="stat-num">∞</span><span class="stat-label">Growth Potential</span></div>
+  </div>
+</section>
+
+<!-- SECTION 1: CURRENT ANALYSIS -->
+<section class="section" id="analysis">
+  <div class="section-header">
+    <span class="section-num">01</span>
+    <div>
+      <h2 class="section-title">Current Situation Analysis</h2>
+      <p class="section-subtitle">An honest, mentor-level diagnosis of where you stand right now.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-title">The Real Problem</div>
+    You have 3 years of experience but you've been building <em>usage hours</em>, not <em>engineering skills</em>. AI tools helped you ship code faster, but they also prevented you from building the mental models that senior engineers rely on. The good news: your exposure to PHP, MySQL, Laravel, CouchDB, and deployment gives you a valuable foundation to build upon — not start over.
+  </div>
+
+  <h3 class="subsection">Strengths (Don't Discount These)</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">✅ Real Production Experience</div>
+      <div class="card-body">You've deployed to live servers, handled real databases, touched real users. Most bootcamp grads haven't. This is gold.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ Multi-Stack Exposure</div>
+      <div class="card-body">PHP + Laravel + MySQL + CouchDB + JS + Git = You understand different paradigms. SQL vs NoSQL. Relational vs document models.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ Business Context</div>
+      <div class="card-body">Working with legacy ERP systems means you understand how real businesses run. This is rare among junior developers.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ Self-Awareness</div>
+      <div class="card-body">Most weak engineers don't know they're weak. You do. That metacognition is the first step to real mastery.</div>
+    </div>
+  </div>
+
+  <h3 class="subsection">Biggest Problems — Brutally Honest</h3>
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">❌ Passive Code Consumption</div>
+      <div class="card-body">You've been reading and modifying AI code instead of writing from scratch. This is like watching someone else work out and expecting to get fit. Muscle memory doesn't form this way.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">❌ No Mental Models</div>
+      <div class="card-body">When AI gives you code, you don't build the "why" — only the "what". Mental models (how memory works, how HTTP works, how trees traverse) are what senior engineers use to solve new problems instantly.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">❌ Weak Debugging Loop</div>
+      <div class="card-body">Real debugging requires: hypothesis → test → analyze → repeat. AI shortcuts this loop. You never built the neurological pathway that makes debugging feel like detective work.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">❌ Zero Algorithmic Thinking</div>
+      <div class="card-body">Without DSA practice, you can't answer: "Is this O(n²)? Can I make it O(n log n)?" These questions decide whether your app survives 100k users or dies at 1000.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">❌ Confidence Erosion</div>
+      <div class="card-body">Every time you couldn't solve something without AI, your brain recorded "I can't do this". You now have imposter syndrome baked in. This needs systematic rebuilding through small daily wins.</div>
+    </div>
+    <div class="card">
+      <div class="card-title">❌ Legacy-Only Mindset</div>
+      <div class="card-body">PHP 5.6 patterns are anti-patterns today. Global functions, no type safety, procedural code — these habits slow you down when writing modern PHP 8+ or TypeScript.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: MINDSET RESET -->
+<section class="section" id="mindset">
+  <div class="section-header">
+    <span class="section-num">02</span>
+    <div>
+      <h2 class="section-title">Mindset Reset</h2>
+      <p class="section-subtitle">Before a single line of code, fix the software running between your ears.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="subsection">The New Rules</h3>
+      <ul class="checklist">
+        <li><strong>Struggle is the curriculum.</strong> When you feel stuck and frustrated, that's not failure — that's myelination. Your brain is literally rewiring. Embrace it.</li>
+        <li><strong>Understanding > Completion.</strong> A slow, deeply understood solution beats a fast, copy-pasted one. Every time.</li>
+        <li><strong>Write code before reading solutions.</strong> Spend at least 25-45 minutes genuinely attempting every problem before looking at hints. This is non-negotiable.</li>
+        <li><strong>Read documentation like a senior.</strong> Not Googling "how to do X" — reading the official docs to understand the full API surface area.</li>
+        <li><strong>Own your learning pace.</strong> Compare yourself to past-you, not YouTube tutorial creators. They've been doing this for 10+ years.</li>
+        <li><strong>AI is a calculator, not a teacher.</strong> You wouldn't use a calculator to learn multiplication tables. Use AI to check, not to create.</li>
+        <li><strong>Identity shift:</strong> Stop saying "I'm a PHP developer." Say "I'm a software engineer who currently uses PHP." Huge difference in trajectory.</li>
+        <li><strong>The 2% rule:</strong> Get 2% better every day. In 1 year, you're 1300% better. Daily discipline beats motivation every time.</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="subsection">Deep Work Protocol</h3>
+      <div class="card">
+        <div class="card-title">The Focus System</div>
+        <div class="card-body">
+          <p style="margin-bottom:12px;">Based on Cal Newport's <em>Deep Work</em> + Andela engineering practices:</p>
+          <ul class="checklist">
+            <li>Block 2-3 hours of uninterrupted coding daily — phone in another room</li>
+            <li>Use Pomodoro: 50 min work → 10 min break</li>
+            <li>Write code in the morning (peak cognitive hours)</li>
+            <li>No social media during study blocks — use Cold Turkey or Freedom app</li>
+            <li>Keep a "distraction log" — write the thought down, return to focus</li>
+            <li>End every session writing what you learned in 3 sentences</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:14px;">
+        <div class="card-title">Note-Taking System (Zettelkasten + Code Journal)</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Use <strong>Obsidian</strong> (free) — link concepts together like a second brain</li>
+            <li>For each new concept: What is it? Why does it exist? How does it work? When to use it?</li>
+            <li>Keep a "bugs solved" journal — write the problem, your hypothesis, the solution</li>
+            <li>Weekly review: re-read your notes from the past 7 days in 15 min</li>
+            <li>Code snippets go in a personal wiki repo on GitHub — your living cheatsheet</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: 30-DAY PLAN -->
+<section class="section" id="day30">
+  <div class="section-header">
+    <span class="section-num">03</span>
+    <div>
+      <h2 class="section-title">30-Day Recovery Plan</h2>
+      <p class="section-subtitle">Rebuild fundamentals. No frameworks. No AI. Just you and the terminal.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <div class="alert-title">⚠ The Hard Rule for Month 1</div>
+    No Laravel. No frameworks. No AI code generation. PHP from scratch, JavaScript from scratch, SQL from scratch. This is detox month. It feels brutal. It's worth it.
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-period">Week 1 — Days 1–7</div>
+      <div class="timeline-title">Core Programming Fundamentals Recovery</div>
+      <div class="timeline-desc">Treat this like Day 1 of engineering school. Go back to the absolute basics and do them properly this time.</div>
+      <ul class="checklist">
+        <li>Variables, data types, type coercion — write 20 small programs to test your understanding</li>
+        <li>Control flow: if/else, switch, loops — solve 30 HackerRank easy problems without AI</li>
+        <li>Functions: parameters, return values, scope, closures — write a mini calculator in both PHP and JS from memory</li>
+        <li>Arrays: create, search, sort, filter — implement these manually without built-in functions</li>
+        <li>Strings: manipulation, regex basics — solve 15 string problems on LeetCode (easy tier)</li>
+        <li>Read: "PHP: The Right Way" (phptherightway.com) — chapters 1-4</li>
+        <li>Goal: Write a CLI address book app in pure PHP — no framework, from scratch</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Week 2 — Days 8–14</div>
+      <div class="timeline-title">OOP + Data Structures Introduction</div>
+      <div class="timeline-desc">Object-Oriented Programming done right — not copy-pasted, but genuinely understood.</div>
+      <ul class="checklist">
+        <li>Classes, objects, methods, properties — understand <em>why</em> OOP exists, not just how</li>
+        <li>Inheritance, interfaces, abstract classes — the SOLID principles (1 per day)</li>
+        <li>Implement a Stack and Queue from scratch in PHP — no built-in data structures</li>
+        <li>Implement a Linked List from scratch — add, delete, search, reverse</li>
+        <li>Read: "Clean Code" by Robert Martin — chapters 1-5 (get PDF from archive.org)</li>
+        <li>LeetCode: 5 easy array problems, 5 easy string problems, 3 easy linked list problems</li>
+        <li>Goal: Build a small OOP inventory system in PHP — Product, Category, Inventory classes</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Week 3 — Days 15–21</div>
+      <div class="timeline-title">Database Fundamentals + SQL Mastery</div>
+      <div class="timeline-desc">SQL is a superpower. Most developers treat it like CRUD syntax. Learn it like a data architect.</div>
+      <ul class="checklist">
+        <li>Install MySQL locally — no GUI tools this week, only terminal</li>
+        <li>Create databases, tables, relationships — foreign keys, indexes, constraints by hand</li>
+        <li>Master JOINs: INNER, LEFT, RIGHT, FULL, SELF — write 20 JOIN queries on a sample db</li>
+        <li>Aggregations: GROUP BY, HAVING, window functions — understand when each is appropriate</li>
+        <li>Subqueries vs JOINs — understand the performance difference with EXPLAIN</li>
+        <li>Normalization: 1NF, 2NF, 3NF — design a schema for a school management system</li>
+        <li>Practice: SQLZoo.net, Mode Analytics SQL Tutorial (both free)</li>
+        <li>Goal: Build and query a full e-commerce database schema from memory</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Week 4 — Days 22–30</div>
+      <div class="timeline-title">JavaScript Fundamentals + HTTP/Web Fundamentals</div>
+      <div class="timeline-desc">Understand the web at the protocol level. Know what happens when you press Enter in a browser.</div>
+      <ul class="checklist">
+        <li>JavaScript: var/let/const, closures, prototype chain, this keyword — no frameworks</li>
+        <li>Async: callbacks → promises → async/await — implement a fake API call chain manually</li>
+        <li>HTTP: request/response cycle, verbs (GET/POST/PUT/DELETE/PATCH), headers, cookies, sessions</li>
+        <li>Build a raw PHP server (no framework) that handles REST API routes manually</li>
+        <li>JSON: encoding, decoding, validation — build a simple JSON API by hand</li>
+        <li>DOM: querySelector, events, createElement, fetch API — build a todo app in vanilla JS</li>
+        <li>Goal: A working REST API in raw PHP + a vanilla JS frontend consuming it</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="alert alert-success">
+    <div class="alert-title">✅ Month 1 Success Metrics</div>
+    You should be able to: write a functioning PHP class from memory, explain the difference between JOIN types, implement a linked list without Googling, and build a basic REST API endpoint without any framework. If you can do these, month 2 begins.
+  </div>
+</section>
+
+<!-- SECTION 4: 90-DAY PLAN -->
+<section class="section" id="day90">
+  <div class="section-header">
+    <span class="section-num">04</span>
+    <div>
+      <h2 class="section-title">90-Day Intensive Plan</h2>
+      <p class="section-subtitle">DSA foundation, modern PHP/Laravel, React fundamentals, and first real projects.</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'t90-1')">Month 2</button>
+    <button class="tab-btn" onclick="switchTab(this,'t90-2')">Month 3</button>
+    <button class="tab-btn" onclick="switchTab(this,'t90-3')">Milestones</button>
+  </div>
+
+  <div class="tab-pane active" id="t90-1">
+    <h3 class="subsection">Month 2: DSA + Laravel Mastery</h3>
+    <div class="two-col">
+      <div>
+        <div class="card">
+          <div class="card-title" style="color:var(--gold)">DSA: Daily 1 Problem Habit</div>
+          <div class="card-body">
+            <p style="margin-bottom:10px;">Weeks 5-6 focus areas:</p>
+            <ul class="checklist">
+              <li>Arrays: Two pointers, sliding window technique — 20 problems</li>
+              <li>Binary search: standard + variations — 10 problems</li>
+              <li>Recursion: base case thinking, call stack visualization — 10 problems</li>
+              <li>Stacks + Queues: implement, apply — 10 problems</li>
+              <li>Big-O notation: analyze every solution you write</li>
+              <li>Platform: LeetCode (free), NeetCode.io for video explanations</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title" style="color:var(--teal)">Modern PHP + Laravel</div>
+          <div class="card-body">
+            <p style="margin-bottom:10px;">Weeks 7-8 focus areas:</p>
+            <ul class="checklist">
+              <li>PHP 8.x: types, match, fibers, readonly, enums, named arguments</li>
+              <li>Laravel: routing, middleware, controllers, models — read official docs only</li>
+              <li>Eloquent ORM: relationships, eager loading, query builder</li>
+              <li>Artisan commands, migration system, seeder pattern</li>
+              <li>Authentication: Laravel Sanctum + Passport basics</li>
+              <li>Build: A blog system with auth, posts, categories, tags from scratch</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="t90-2">
+    <h3 class="subsection">Month 3: React + APIs + First Full Project</h3>
+    <div class="two-col">
+      <div>
+        <div class="card">
+          <div class="card-title" style="color:var(--pink)">React Fundamentals</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li>Understand the Virtual DOM — don't just use React, understand why it exists</li>
+              <li>useState, useEffect, useContext — master these 3 hooks before all others</li>
+              <li>Component design: props, lifting state, composition over inheritance</li>
+              <li>React Router — SPA routing patterns</li>
+              <li>Axios/Fetch: consuming Laravel APIs from React</li>
+              <li>Form handling with controlled components — no libraries first</li>
+              <li>Tailwind CSS: utility-first styling — productive within 1 week</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card">
+          <div class="card-title" style="color:var(--green)">First Real Project: Task Management System</div>
+          <div class="card-body">
+            <ul class="checklist">
+              <li>Backend: Laravel API (auth, tasks CRUD, teams, assignments)</li>
+              <li>Frontend: React SPA consuming the API</li>
+              <li>Database: MySQL with proper relationships and indexes</li>
+              <li>Auth: JWT-based login/register flow</li>
+              <li>Deploy: Railway.app or Render.com (free tier)</li>
+              <li>GitHub: public repo with proper README, commit messages</li>
+              <li>This is your first portfolio piece — treat it seriously</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="t90-3">
+    <h3 class="subsection">90-Day Milestones</h3>
+    <div class="progress-track">
+      <div class="progress-item">
+        <span class="progress-label">LeetCode easy solved</span>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:80%; background: var(--green);"></div></div>
+        <span class="progress-val">40/50</span>
+      </div>
+      <div class="progress-item">
+        <span class="progress-label">DSA topics covered</span>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:60%; background: var(--accent);"></div></div>
+        <span class="progress-val">6/10</span>
+      </div>
+      <div class="progress-item">
+        <span class="progress-label">Laravel features mastered</span>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:70%; background: var(--teal);"></div></div>
+        <span class="progress-val">7/10</span>
+      </div>
+      <div class="progress-item">
+        <span class="progress-label">Projects deployed</span>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:50%; background: var(--gold);"></div></div>
+        <span class="progress-val">1-2</span>
+      </div>
+      <div class="progress-item">
+        <span class="progress-label">React hooks mastered</span>
+        <div class="progress-bar-track"><div class="progress-bar-fill" style="width:60%; background: var(--pink);"></div></div>
+        <span class="progress-val">6/10</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: 6-MONTH PLAN -->
+<section class="section" id="month6">
+  <div class="section-header">
+    <span class="section-num">05</span>
+    <div>
+      <h2 class="section-title">6-Month Transformation Plan</h2>
+      <p class="section-subtitle">Intermediate DSA, system design intro, advanced backend, ERP modules, portfolio building.</p>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-period">Month 4</div>
+      <div class="timeline-title">Intermediate DSA + Advanced Laravel</div>
+      <ul class="checklist">
+        <li>DSA: Trees (BFS/DFS), Binary Search Trees, Heaps — 30 medium problems</li>
+        <li>Laravel: Queues (Redis), Events, Listeners, Observers, Jobs</li>
+        <li>Caching strategy: Redis + Laravel Cache facade — implement in project</li>
+        <li>RESTful API design principles + OpenAPI/Swagger documentation</li>
+        <li>Service pattern, Repository pattern, Action classes in Laravel</li>
+        <li>Testing: PHPUnit + Feature tests for all API endpoints</li>
+        <li>Build: Multi-tenant SaaS skeleton — team management, plans, billing hooks</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Month 5</div>
+      <div class="timeline-title">System Design Basics + Database Optimization</div>
+      <ul class="checklist">
+        <li>System design: Load balancers, CDN, caching layers, message queues — draw diagrams</li>
+        <li>Database: Advanced indexing, EXPLAIN ANALYZE, query optimization, partitioning</li>
+        <li>MySQL: Replication concepts, read replicas, connection pooling</li>
+        <li>Redis: Data types (sets, sorted sets, hashes), pub/sub, TTL strategies</li>
+        <li>WebSockets: Laravel Echo + Pusher/Soketi for real-time features</li>
+        <li>Security: SQL injection, XSS, CSRF, OWASP Top 10 — protect your apps</li>
+        <li>Graphs DSA: BFS, DFS, Dijkstra, topological sort — 20 problems</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Month 6</div>
+      <div class="timeline-title">ERP Module Development + TypeScript + Portfolio</div>
+      <ul class="checklist">
+        <li>ERP modules: Build Inventory, Purchase Order, and Sales modules in Laravel</li>
+        <li>TypeScript: Migrate your React frontend to TS — understand type safety deeply</li>
+        <li>State management: Zustand (simpler) → Redux Toolkit (for complex apps)</li>
+        <li>Dynamic Programming intro: understand memoization, tabulation — 15 problems</li>
+        <li>Build portfolio project: Production-grade ERP module (inventory + sales + reports)</li>
+        <li>Open source: Find 2-3 PHP/Laravel packages, submit 1 PR to each</li>
+        <li>GitHub profile: polished READMEs, pinned repos, contribution graph active</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 6: 1-YEAR PLAN -->
+<section class="section" id="year1">
+  <div class="section-header">
+    <span class="section-num">06</span>
+    <div>
+      <h2 class="section-title">1-Year Elite Engineer Plan</h2>
+      <p class="section-subtitle">Advanced DSA, microservices, full system design, interview readiness, global job market.</p>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title"><span class="badge badge-gold" style="margin-right:8px">Q3</span> Months 7-9</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Advanced DSA: DP patterns (knapsack, LCS, matrix chain), Backtracking, advanced graphs</li>
+          <li>Design patterns: Factory, Strategy, Observer, Decorator, CQRS, Event Sourcing</li>
+          <li>Microservices: Docker containers, service communication, API gateway pattern</li>
+          <li>Message queues: RabbitMQ or Apache Kafka basics</li>
+          <li>LeetCode: 100+ mediums solved, 20+ hards attempted</li>
+          <li>First technical blog post published on dev.to or Medium</li>
+          <li>Complete ERP: Accounting module + Payroll module + HR module</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title"><span class="badge badge-accent" style="margin-right:8px">Q4</span> Months 10-12</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>System design mock interviews: LLD + HLD — 20 practice sessions</li>
+          <li>DSA mock interviews: 3 per week on Pramp.com or Interviewing.io</li>
+          <li>Production deployment: Complete CI/CD pipeline, Docker Compose, Nginx</li>
+          <li>Performance: profiling PHP apps with Blackfire, Laravel Telescope, Debugbar</li>
+          <li>Complete SaaS product: ready to launch, with landing page and documentation</li>
+          <li>Resume polished, GitHub green, LinkedIn optimized for remote roles</li>
+          <li>Apply to 5 companies per week, track with Notion — aim for top product companies</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: DAILY SCHEDULE -->
+<section class="section" id="schedule">
+  <div class="section-header">
+    <span class="section-num">07</span>
+    <div>
+      <h2 class="section-title">Daily Routine</h2>
+      <p class="section-subtitle">A concrete hour-by-hour schedule that builds the daily discipline of a senior engineer.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    This is designed for someone working a job. If you're full-time on learning, double the deep work blocks. Consistency beats intensity — 3 hours daily beats 20 hours on Sunday.
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="subsection">Weekday Schedule</h3>
+      <div class="schedule-grid">
+        <div class="schedule-time">5:30</div>
+        <div class="schedule-activity">Wake. No phone. Write 3 goals for the day. <span class="badge badge-teal">Habit</span></div>
+        <div class="schedule-time">5:45</div>
+        <div class="schedule-activity">LeetCode: 1 problem (30-40 min deep attempt — NO hints for first 25 min) <span class="badge badge-accent">DSA</span></div>
+        <div class="schedule-time">6:30</div>
+        <div class="schedule-activity">Breakfast, shower, commute prep</div>
+        <div class="schedule-time">7:00</div>
+        <div class="schedule-activity">Read technical book/doc (30 min) — not tutorials, actual books <span class="badge badge-gold">Theory</span></div>
+        <div class="schedule-time">9:00</div>
+        <div class="schedule-activity">Work day begins (your current job)</div>
+        <div class="schedule-time">13:00</div>
+        <div class="schedule-activity">Lunch: 30 min study break — review yesterday's notes in Obsidian</div>
+        <div class="schedule-time">18:00</div>
+        <div class="schedule-activity">Evening deep work block starts — project building or backend track <span class="badge badge-green">Build</span></div>
+        <div class="schedule-time">20:30</div>
+        <div class="schedule-activity">Frontend practice or system design reading (lighter cognitive load)</div>
+        <div class="schedule-time">21:30</div>
+        <div class="schedule-activity">Write in code journal: what did I build, debug, learn today?</div>
+        <div class="schedule-time">22:00</div>
+        <div class="schedule-activity">Read (non-tech): biography, psychology, business — feeds problem-solving</div>
+        <div class="schedule-time">22:30</div>
+        <div class="schedule-activity">Sleep. Non-negotiable. Cognitive performance requires 7-8 hrs.</div>
+      </div>
+    </div>
+    <div>
+      <h3 class="subsection">Weekend Schedule (Full Learning Mode)</h3>
+      <div class="schedule-grid">
+        <div class="schedule-time">7:00</div>
+        <div class="schedule-activity">Wake. 2 LeetCode problems — one medium, one attempt at hard</div>
+        <div class="schedule-time">9:00</div>
+        <div class="schedule-activity">2-hour deep project build session — no interruptions <span class="badge badge-accent">Build</span></div>
+        <div class="schedule-time">11:00</div>
+        <div class="schedule-activity">Break + walk — movement improves creative problem solving</div>
+        <div class="schedule-time">11:30</div>
+        <div class="schedule-activity">System design study: read 1 chapter of "Designing Data-Intensive Apps"</div>
+        <div class="schedule-time">13:00</div>
+        <div class="schedule-activity">Lunch + rest</div>
+        <div class="schedule-time">14:00</div>
+        <div class="schedule-activity">2-hour project build session — complex features, debugging <span class="badge badge-green">Build</span></div>
+        <div class="schedule-time">16:00</div>
+        <div class="schedule-activity">Weekly review: what did I learn? What's the plan for next week?</div>
+        <div class="schedule-time">17:00</div>
+        <div class="schedule-activity">Open source: read issues, submit PRs, comment on discussions</div>
+        <div class="schedule-time">18:00</div>
+        <div class="schedule-activity">Personal life, friends, family — burnout prevention is also strategy</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 8: DSA ROADMAP -->
+<section class="section" id="dsa">
+  <div class="section-header">
+    <span class="section-num">09</span>
+    <div>
+      <h2 class="section-title">DSA Mastery Roadmap</h2>
+      <p class="section-subtitle">Complete Data Structures & Algorithms track with exact problems, patterns, and timeline.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    <div class="alert-title">DSA Philosophy</div>
+    Don't grind 500 problems randomly. Master 15 patterns deeply — most interview problems are combinations of these patterns. Quality of understanding > quantity of problems.
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'dsa-order')">Learning Order</button>
+    <button class="tab-btn" onclick="switchTab(this,'dsa-topics')">All Topics</button>
+    <button class="tab-btn" onclick="switchTab(this,'dsa-patterns')">Key Patterns</button>
+    <button class="tab-btn" onclick="switchTab(this,'dsa-resources')">Resources</button>
+  </div>
+
+  <div class="tab-pane active" id="dsa-order">
+    <h3 class="subsection">Exact Learning Order (Follow This Strictly)</h3>
+    <table class="data-table">
+      <thead><tr><th>#</th><th>Topic</th><th>Week</th><th>Easy</th><th>Med</th><th>Hard</th><th>Total</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Arrays + Basic Math</td><td>Week 5</td><td><span class="badge badge-green">10</span></td><td>0</td><td>0</td><td>10</td></tr>
+        <tr><td>2</td><td>Strings</td><td>Week 5</td><td><span class="badge badge-green">8</span></td><td>0</td><td>0</td><td>8</td></tr>
+        <tr><td>3</td><td>Two Pointers</td><td>Week 6</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">5</span></td><td>0</td><td>10</td></tr>
+        <tr><td>4</td><td>Sliding Window</td><td>Week 6</td><td><span class="badge badge-green">3</span></td><td><span class="badge badge-orange">7</span></td><td>0</td><td>10</td></tr>
+        <tr><td>5</td><td>Binary Search</td><td>Week 7</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">8</span></td><td><span class="badge badge-red">2</span></td><td>15</td></tr>
+        <tr><td>6</td><td>Recursion</td><td>Week 7</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">5</span></td><td>0</td><td>10</td></tr>
+        <tr><td>7</td><td>Linked Lists</td><td>Week 8</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">7</span></td><td>0</td><td>12</td></tr>
+        <tr><td>8</td><td>Stacks + Queues</td><td>Week 9</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">8</span></td><td>0</td><td>13</td></tr>
+        <tr><td>9</td><td>Trees (BFS/DFS)</td><td>Week 10-11</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">12</span></td><td><span class="badge badge-red">3</span></td><td>20</td></tr>
+        <tr><td>10</td><td>Binary Search Tree</td><td>Week 11</td><td><span class="badge badge-green">4</span></td><td><span class="badge badge-orange">6</span></td><td>0</td><td>10</td></tr>
+        <tr><td>11</td><td>Heaps / Priority Queue</td><td>Week 12</td><td><span class="badge badge-green">3</span></td><td><span class="badge badge-orange">7</span></td><td><span class="badge badge-red">2</span></td><td>12</td></tr>
+        <tr><td>12</td><td>Graphs (BFS/DFS)</td><td>Week 13-14</td><td><span class="badge badge-green">3</span></td><td><span class="badge badge-orange">12</span></td><td><span class="badge badge-red">3</span></td><td>18</td></tr>
+        <tr><td>13</td><td>Greedy</td><td>Week 15</td><td><span class="badge badge-green">3</span></td><td><span class="badge badge-orange">7</span></td><td>0</td><td>10</td></tr>
+        <tr><td>14</td><td>Backtracking</td><td>Week 16</td><td>0</td><td><span class="badge badge-orange">8</span></td><td><span class="badge badge-red">4</span></td><td>12</td></tr>
+        <tr><td>15</td><td>Dynamic Programming</td><td>Week 17-20</td><td><span class="badge badge-green">5</span></td><td><span class="badge badge-orange">20</span></td><td><span class="badge badge-red">10</span></td><td>35</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane" id="dsa-topics">
+    <div class="dsa-topic">
+      <div class="dsa-header">
+        <span class="dsa-title">Arrays + Two Pointers</span>
+        <div class="dsa-counts">
+          <span class="count-pill count-easy">Easy: 10</span>
+          <span class="count-pill count-med">Med: 8</span>
+        </div>
+      </div>
+      <div class="dsa-problems">
+        <span class="dsa-problem">LC #1 Two Sum</span>
+        <span class="dsa-problem">LC #26 Remove Dupes</span>
+        <span class="dsa-problem">LC #121 Stock Buy/Sell</span>
+        <span class="dsa-problem">LC #217 Contains Duplicate</span>
+        <span class="dsa-problem">LC #238 Product Except Self</span>
+        <span class="dsa-problem">LC #11 Container Water</span>
+        <span class="dsa-problem">LC #15 3Sum</span>
+        <span class="dsa-problem">LC #42 Trapping Rain Water</span>
+        <span class="dsa-problem">LC #128 Longest Consecutive</span>
+        <span class="dsa-problem">LC #167 Two Sum II</span>
+      </div>
+    </div>
+    <div class="dsa-topic">
+      <div class="dsa-header">
+        <span class="dsa-title">Sliding Window</span>
+        <div class="dsa-counts">
+          <span class="count-pill count-easy">Easy: 3</span>
+          <span class="count-pill count-med">Med: 7</span>
+          <span class="count-pill count-hard">Hard: 2</span>
+        </div>
+      </div>
+      <div class="dsa-problems">
+        <span class="dsa-problem">LC #3 Longest Substring No Repeat</span>
+        <span class="dsa-problem">LC #76 Minimum Window Substring</span>
+        <span class="dsa-problem">LC #121 Best Time Stock</span>
+        <span class="dsa-problem">LC #239 Sliding Window Maximum</span>
+        <span class="dsa-problem">LC #424 Longest Repeating Char Replace</span>
+        <span class="dsa-problem">LC #567 Permutation in String</span>
+        <span class="dsa-problem">LC #643 Max Avg Subarray</span>
+      </div>
+    </div>
+    <div class="dsa-topic">
+      <div class="dsa-header">
+        <span class="dsa-title">Trees (BFS + DFS)</span>
+        <div class="dsa-counts">
+          <span class="count-pill count-easy">Easy: 6</span>
+          <span class="count-pill count-med">Med: 12</span>
+          <span class="count-pill count-hard">Hard: 3</span>
+        </div>
+      </div>
+      <div class="dsa-problems">
+        <span class="dsa-problem">LC #104 Max Depth Binary Tree</span>
+        <span class="dsa-problem">LC #226 Invert Binary Tree</span>
+        <span class="dsa-problem">LC #100 Same Tree</span>
+        <span class="dsa-problem">LC #102 Level Order Traversal</span>
+        <span class="dsa-problem">LC #235 LCA BST</span>
+        <span class="dsa-problem">LC #124 Binary Tree Max Path Sum</span>
+        <span class="dsa-problem">LC #297 Serialize/Deserialize Tree</span>
+        <span class="dsa-problem">LC #572 Subtree of Another Tree</span>
+        <span class="dsa-problem">LC #543 Diameter Binary Tree</span>
+      </div>
+    </div>
+    <div class="dsa-topic">
+      <div class="dsa-header">
+        <span class="dsa-title">Dynamic Programming</span>
+        <div class="dsa-counts">
+          <span class="count-pill count-easy">Easy: 5</span>
+          <span class="count-pill count-med">Med: 20</span>
+          <span class="count-pill count-hard">Hard: 10</span>
+        </div>
+      </div>
+      <div class="dsa-problems">
+        <span class="dsa-problem">LC #70 Climbing Stairs</span>
+        <span class="dsa-problem">LC #198 House Robber</span>
+        <span class="dsa-problem">LC #322 Coin Change</span>
+        <span class="dsa-problem">LC #139 Word Break</span>
+        <span class="dsa-problem">LC #300 Longest Increasing Subsequence</span>
+        <span class="dsa-problem">LC #1143 LCS</span>
+        <span class="dsa-problem">LC #0/1 Knapsack</span>
+        <span class="dsa-problem">LC #416 Partition Equal Subset Sum</span>
+        <span class="dsa-problem">LC #312 Burst Balloons</span>
+        <span class="dsa-problem">LC #115 Distinct Subsequences</span>
+      </div>
+    </div>
+    <div class="dsa-topic">
+      <div class="dsa-header">
+        <span class="dsa-title">Graphs</span>
+        <div class="dsa-counts">
+          <span class="count-pill count-easy">Easy: 3</span>
+          <span class="count-pill count-med">Med: 12</span>
+          <span class="count-pill count-hard">Hard: 3</span>
+        </div>
+      </div>
+      <div class="dsa-problems">
+        <span class="dsa-problem">LC #200 Number of Islands</span>
+        <span class="dsa-problem">LC #207 Course Schedule</span>
+        <span class="dsa-problem">LC #417 Pacific Atlantic Water</span>
+        <span class="dsa-problem">LC #130 Surrounded Regions</span>
+        <span class="dsa-problem">LC #994 Rotting Oranges</span>
+        <span class="dsa-problem">LC #323 Connected Components</span>
+        <span class="dsa-problem">LC #743 Network Delay Time (Dijkstra)</span>
+        <span class="dsa-problem">LC #269 Alien Dictionary (topo sort)</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="dsa-patterns">
+    <h3 class="subsection">The 15 Must-Master Patterns</h3>
+    <div class="skill-tree">
+      <div class="skill-node">
+        <div class="skill-node-title">Two Pointers</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Sorted array problems. Reduce O(n²) to O(n). Left+right, fast+slow.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Sliding Window</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Subarray/substring with constraint. Expand right, shrink left.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Binary Search</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Any monotonic condition. O(log n). Search space reduction.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">DFS Tree/Graph</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Explore all paths. Recursion + backtrack. Path sum, islands.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">BFS Shortest Path</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Level-by-level. Queue. Shortest path in unweighted graph.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Heap / Top-K</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Top-K elements. Min/max heap. O(n log k) vs O(n log n) sort.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Backtracking</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Permutations, combinations, subsets. Choose → explore → unchoose.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Dynamic Programming</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Optimal substructure + overlapping subproblems. Memo/tabulate.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Prefix Sum</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Range sum queries in O(1). Build prefix array once, query fast.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Hash Map</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">O(1) lookup. Frequency count, anagram, two sum family problems.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Monotonic Stack</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Next greater/smaller element. Temperature problem family.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Union Find</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Disjoint sets. Connected components, cycle detection in graphs.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Trie</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Prefix trees. Autocomplete, word search, dictionary problems.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Greedy</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Local optimal → global optimal. Interval scheduling, activity selection.</div>
+      </div>
+      <div class="skill-node">
+        <div class="skill-node-title">Intervals</div>
+        <div class="skill-node-level"><div class="level-dot filled"></div><div class="level-dot filled"></div><div class="level-dot"></div><div class="level-dot"></div><div class="level-dot"></div></div>
+        <div class="skill-node-desc">Merge, insert, overlapping intervals. Sort by start. Sweep line.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="dsa-resources">
+    <h3 class="subsection">Exact DSA Resources</h3>
+    <a href="https://neetcode.io" class="resource-link">
+      <div class="resource-icon" style="background:rgba(34,197,94,0.1)">🎯</div>
+      <div class="resource-meta"><span class="resource-name">NeetCode.io</span><span class="resource-desc">Free — Best structured roadmap with video explanations. Start here.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://leetcode.com" class="resource-link">
+      <div class="resource-icon" style="background:rgba(245,166,35,0.1)">⚡</div>
+      <div class="resource-meta"><span class="resource-name">LeetCode</span><span class="resource-desc">The gold standard for interview prep. Free tier has 2300+ problems.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://www.algoexpert.io" class="resource-link">
+      <div class="resource-icon" style="background:rgba(124,106,245,0.1)">🧠</div>
+      <div class="resource-meta"><span class="resource-name">AlgoExpert</span><span class="resource-desc">160 curated problems with video explanations. Worth it if you can afford it.</span></div>
+      <span class="badge badge-orange">Paid</span>
+    </a>
+    <a href="https://visualgo.net" class="resource-link">
+      <div class="resource-icon" style="background:rgba(20,184,166,0.1)">👁️</div>
+      <div class="resource-meta"><span class="resource-name">VisuAlgo</span><span class="resource-desc">Free — Visualize how algorithms work step by step. Essential for understanding.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://cp-algorithms.com" class="resource-link">
+      <div class="resource-icon" style="background:rgba(244,63,94,0.1)">📖</div>
+      <div class="resource-meta"><span class="resource-name">CP Algorithms</span><span class="resource-desc">Free — Deep algorithmic theory. After you've done 100+ problems.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <div class="alert alert-warning" style="margin-top:12px;">
+      <div class="alert-title">Book: "Cracking the Coding Interview" by Gayle McDowell</div>
+      Still the best interview prep book. 189 problems with detailed solutions. Get the 6th edition PDF.
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 9: BACKEND TRACK -->
+<section class="section" id="backend">
+  <div class="section-header">
+    <span class="section-num">10</span>
+    <div>
+      <h2 class="section-title">Backend Engineering Track</h2>
+      <p class="section-subtitle">From legacy PHP to modern backend engineering — Laravel, APIs, queues, security, scaling.</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'be-php')">Modern PHP</button>
+    <button class="tab-btn" onclick="switchTab(this,'be-laravel')">Laravel Deep Dive</button>
+    <button class="tab-btn" onclick="switchTab(this,'be-api')">API Engineering</button>
+    <button class="tab-btn" onclick="switchTab(this,'be-arch')">Architecture</button>
+    <button class="tab-btn" onclick="switchTab(this,'be-security')">Security</button>
+  </div>
+
+  <div class="tab-pane active" id="be-php">
+    <h3 class="subsection">PHP 5.6 → PHP 8.3 Migration Mindset</h3>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">What to Unlearn (PHP 5.6 Habits)</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Global functions for everything → use classes and DI</li>
+            <li>mysql_* functions → use PDO or Eloquent</li>
+            <li>register_globals → always explicit variable scope</li>
+            <li>No type hints → strict_types=1 everywhere</li>
+            <li>Mixed HTML in PHP files → separation of concerns</li>
+            <li>No error handling → try/catch, custom exceptions</li>
+            <li>include/require soup → PSR-4 autoloading</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">PHP 8.x Features to Master</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li><span class="inline-code">declare(strict_types=1)</span> — enable it in every file</li>
+            <li>Named arguments: <span class="inline-code">fn(name: 'Alice', age: 25)</span></li>
+            <li>Match expressions vs switch — learn the difference</li>
+            <li>Null safe operator: <span class="inline-code">$user?->profile?->avatar</span></li>
+            <li>Readonly properties + Constructor promotion</li>
+            <li>Enums — stop using string constants</li>
+            <li>Fibers — understand async PHP concepts</li>
+            <li>Union/Intersection types: <span class="inline-code">int|string</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="be-laravel">
+    <h3 class="subsection">Laravel Mastery Path</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title" style="color:var(--red)">Level 1: Core</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Service Container + Dependency Injection — understand, don't just use</li>
+            <li>Service Providers: how the framework boots</li>
+            <li>Facades: what they are (static proxy to container binding)</li>
+            <li>Middleware pipeline: request → middleware[] → controller → response</li>
+            <li>Eloquent: query builder, scopes, mutators, accessors, casts</li>
+            <li>Migrations: up/down, foreign keys, indexes in migration files</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--orange)">Level 2: Advanced</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Events + Listeners + Observers — decoupled business logic</li>
+            <li>Jobs + Queues (Redis-backed) — async heavy operations</li>
+            <li>Scheduled tasks: Kernel.php scheduling</li>
+            <li>Notifications: email, Slack, database channels</li>
+            <li>Policies + Gates: authorization layer</li>
+            <li>Form Requests: validation + authorization in one class</li>
+            <li>API Resources: transform Eloquent models to JSON consistently</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title" style="color:var(--accent)">Level 3: Expert</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Custom Artisan commands for ops tasks</li>
+            <li>Livewire or Inertia.js for server-driven UI</li>
+            <li>Octane (Swoole/RoadRunner) — 10x performance PHP</li>
+            <li>Horizon dashboard for queue monitoring</li>
+            <li>Telescope for debugging + request inspection</li>
+            <li>Package development: create your own Laravel package</li>
+            <li>Multi-tenancy: Spatie Multi-Tenancy or custom implementation</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-success" style="margin-top:16px;">
+      <div class="alert-title">Best Laravel Learning Path</div>
+      1. Official Laravel docs (laravel.com/docs) — read end to end, not just what you need<br>
+      2. Laracasts (free + paid) — Jeffrey Way's videos are industry standard<br>
+      3. Laravel Daily (YouTube, free) — real-world patterns and code reviews<br>
+      4. "Laravel Up & Running" book by Matt Stauffer — read cover to cover
+    </div>
+  </div>
+
+  <div class="tab-pane" id="be-api">
+    <h3 class="subsection">API Engineering — Build APIs like a Backend Architect</h3>
+    <ul class="checklist">
+      <li><strong>RESTful design principles:</strong> Resource naming (nouns not verbs), HTTP verbs correctly used, status codes (200, 201, 400, 401, 403, 404, 422, 500)</li>
+      <li><strong>API versioning:</strong> URI versioning (/api/v1/) vs header versioning — understand tradeoffs</li>
+      <li><strong>Authentication:</strong> JWT tokens (how they work, not just laravel-jwt), OAuth2 flow (authorization code, client credentials), API keys for server-to-server</li>
+      <li><strong>Rate limiting:</strong> Laravel's ThrottleRequests middleware, Redis-backed rate limiting, per-user vs per-IP</li>
+      <li><strong>Pagination:</strong> Cursor-based (for large datasets) vs offset-based — know when to use each</li>
+      <li><strong>API documentation:</strong> OpenAPI/Swagger spec, L5-Swagger package, Postman collections</li>
+      <li><strong>GraphQL basics:</strong> Understand the paradigm, when REST is better vs when GraphQL wins</li>
+      <li><strong>Webhook design:</strong> Outgoing webhooks with signature verification (HMAC-SHA256)</li>
+    </ul>
+  </div>
+
+  <div class="tab-pane" id="be-arch">
+    <h3 class="subsection">Architecture Patterns You Must Know</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Repository Pattern</div>
+        <div class="card-body">Decouple data access from business logic. Swap MySQL for Elasticsearch tomorrow without changing business code. Use in Laravel with interfaces.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Service Layer</div>
+        <div class="card-body">Business logic lives in Service classes, not controllers. Controllers are thin orchestrators. Services are fat with logic.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Action Classes</div>
+        <div class="card-body">Single-responsibility classes for specific operations. CreateUserAction, ChargeSubscriptionAction. Popular in Laravel community.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Event-Driven Design</div>
+        <div class="card-body">UserRegistered event → SendWelcomeEmailListener + CreateDefaultSettingsListener. Decoupled, testable, scalable.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">CQRS (basic)</div>
+        <div class="card-body">Separate read models from write models. Read from optimized query, write through command. Scales reads and writes independently.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">DDD Concepts</div>
+        <div class="card-body">Bounded contexts, aggregates, value objects, domain events. Don't go full DDD day 1 — understand the vocabulary and apply gradually.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="be-security">
+    <h3 class="subsection">Security — OWASP Top 10 for PHP Developers</h3>
+    <table class="data-table">
+      <thead><tr><th>Vulnerability</th><th>What It Is</th><th>How to Prevent</th></tr></thead>
+      <tbody>
+        <tr><td><span class="badge badge-red">SQL Injection</span></td><td>Malicious SQL in user input</td><td>Prepared statements, Eloquent ORM, never concatenate SQL</td></tr>
+        <tr><td><span class="badge badge-red">XSS</span></td><td>Script injection in output</td><td>Blade's {{ }} auto-escapes, never use {!! !!} with user data</td></tr>
+        <tr><td><span class="badge badge-red">CSRF</span></td><td>Forged requests from other sites</td><td>Laravel's CSRF middleware, @csrf in all forms</td></tr>
+        <tr><td><span class="badge badge-orange">Broken Auth</span></td><td>Weak session/token management</td><td>Laravel Sanctum, bcrypt passwords, secure cookie flags</td></tr>
+        <tr><td><span class="badge badge-orange">IDOR</span></td><td>Accessing other users' resources</td><td>Policy-based authorization, never expose sequential IDs (use UUIDs)</td></tr>
+        <tr><td><span class="badge badge-orange">Mass Assignment</span></td><td>Updating unintended fields</td><td>Fillable/guarded in Eloquent models — never use $fillable = ['*']</td></tr>
+        <tr><td><span class="badge badge-gold">Sensitive Data</span></td><td>Exposing passwords, tokens</td><td>Never log sensitive data, encrypt at rest, use .env for secrets</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 10: FRONTEND -->
+<section class="section" id="frontend">
+  <div class="section-header">
+    <span class="section-num">11</span>
+    <div>
+      <h2 class="section-title">Frontend Engineering Track</h2>
+      <p class="section-subtitle">JavaScript mastery → TypeScript → React — the path to a complete full-stack engineer.</p>
+    </div>
+  </div>
+
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-period">Stage 1: JavaScript Fundamentals (4 weeks)</div>
+      <div class="timeline-title">Master the Language First, Then the Framework</div>
+      <ul class="checklist">
+        <li><strong>The Event Loop</strong> — watch "What the heck is the event loop anyway?" by Philip Roberts (JSConf EU). Watch 3 times until you can explain it to someone.</li>
+        <li><strong>Closures + Scope</strong> — write 20 functions demonstrating closure behavior. Test in browser console.</li>
+        <li><strong>Prototype chain</strong> — understand why <span class="inline-code">Object.create()</span> and class syntax are the same thing.</li>
+        <li><strong>Promises + async/await</strong> — build a fake API that chains 3 async operations: fetch user → fetch posts → fetch comments. Handle errors properly.</li>
+        <li><strong>ES6+ features</strong> — destructuring, spread, rest, optional chaining, nullish coalescing, template literals.</li>
+        <li><strong>Module system</strong> — CommonJS vs ES Modules — why they differ and when each is used.</li>
+        <li>Book: "You Don't Know JS" (free on GitHub) — read all 6 volumes over 6 months</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Stage 2: TypeScript (3 weeks)</div>
+      <div class="timeline-title">Type Safety Changes How You Think</div>
+      <ul class="checklist">
+        <li>Start with tsconfig basics — strict mode from day 1</li>
+        <li>Types vs Interfaces — when to use each</li>
+        <li>Generics — write your own generic utility functions (like a typed fetch wrapper)</li>
+        <li>Union types, discriminated unions — model your domain with types</li>
+        <li>Utility types: Partial, Required, Pick, Omit, Record — use all of them</li>
+        <li>Type guards + type narrowing — <span class="inline-code">instanceof</span>, <span class="inline-code">typeof</span>, user-defined type guards</li>
+        <li>Resource: TypeScript official handbook (free) + Matt Pocock's Total TypeScript (some free)</li>
+      </ul>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-period">Stage 3: React (6 weeks)</div>
+      <div class="timeline-title">Component Architecture + Modern React Patterns</div>
+      <ul class="checklist">
+        <li><strong>Hooks deep dive</strong> — useState, useEffect, useContext, useReducer, useCallback, useMemo, useRef — write examples for every single one</li>
+        <li><strong>Custom hooks</strong> — extract reusable logic. useFetch(), useLocalStorage(), useDebounce()</li>
+        <li><strong>State management</strong> — Context API (for simple global state) → Zustand (for medium apps) → Redux Toolkit (for complex apps). Learn in this order.</li>
+        <li><strong>React Query / TanStack Query</strong> — for server state management. This is how production apps handle API state.</li>
+        <li><strong>Performance</strong> — React.memo, useMemo, useCallback — understand <em>when</em> to use them (hint: not everywhere)</li>
+        <li><strong>Patterns</strong> — compound components, render props, HOCs — read the docs, not just tutorials</li>
+        <li><strong>Testing</strong> — React Testing Library + Vitest. Test behavior, not implementation.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 11: DATABASE -->
+<section class="section" id="database">
+  <div class="section-header">
+    <span class="section-num">12</span>
+    <div>
+      <h2 class="section-title">Database Engineering Track</h2>
+      <p class="section-subtitle">SQL mastery, performance tuning, NoSQL patterns, Redis caching strategies.</p>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">SQL Mastery Path</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li><strong>Joins:</strong> Master all join types with visual diagrams. Write each one 10+ times.</li>
+          <li><strong>Window functions:</strong> ROW_NUMBER, RANK, LAG, LEAD, SUM OVER — these replace many subqueries</li>
+          <li><strong>CTEs:</strong> WITH clause for readable, reusable subqueries</li>
+          <li><strong>Recursive CTEs:</strong> For hierarchical data (categories, org charts)</li>
+          <li><strong>Stored procedures:</strong> Understand, but prefer application-level logic in modern apps</li>
+          <li><strong>Triggers:</strong> Use sparingly — can create debugging nightmares</li>
+          <li>Practice: SQLZoo.net, pgexercises.com, HackerRank SQL</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Indexing & Query Optimization</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li><strong>EXPLAIN + EXPLAIN ANALYZE</strong> — run this on every slow query. Read it like a detective.</li>
+          <li><strong>B-Tree indexes</strong> — how they work, why they help range queries</li>
+          <li><strong>Composite indexes</strong> — column order matters. Leading column rule.</li>
+          <li><strong>Covering indexes</strong> — index that covers all columns in SELECT (no table read)</li>
+          <li><strong>Index cardinality</strong> — high cardinality = better index candidate</li>
+          <li><strong>N+1 problem</strong> — recognize it, prevent it with eager loading</li>
+          <li><strong>Slow query log</strong> — enable it, read it weekly on production</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Redis Mastery</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Data types: Strings, Lists, Sets, Sorted Sets, Hashes — know when each applies</li>
+          <li>Caching patterns: Cache-aside, Write-through, Write-behind</li>
+          <li>TTL strategy — short TTL for volatile data, long for static</li>
+          <li>Redis Pub/Sub for simple messaging</li>
+          <li>Rate limiting with Redis: INCR + EXPIRE pattern</li>
+          <li>Session storage in Redis (Laravel: CACHE_DRIVER=redis)</li>
+          <li>Laravel Horizon: monitor Redis queues visually</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">CouchDB → Modern NoSQL Understanding</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Document databases: when schema-less is actually an advantage</li>
+          <li>CouchDB's MVCC — Multi-Version Concurrency Control vs MySQL locking</li>
+          <li>MapReduce views in CouchDB — understand, then move to better options</li>
+          <li>CAP theorem: Consistency vs Availability vs Partition tolerance</li>
+          <li>MongoDB: when it beats CouchDB for modern applications</li>
+          <li>Understand: SQL for transactions, NoSQL for flexibility/scale. Both have place.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 12: SYSTEM DESIGN -->
+<section class="section" id="sysdesign">
+  <div class="section-header">
+    <span class="section-num">13</span>
+    <div>
+      <h2 class="section-title">System Design Roadmap</h2>
+      <p class="section-subtitle">How to design systems that handle millions of users — the skill that separates senior from junior.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-info">
+    System design is not about memorizing architectures. It's about understanding tradeoffs. Every architectural decision has a cost. Your job is to know the cost and justify your choice.
+  </div>
+
+  <h3 class="subsection">Core Concepts (Learn In This Order)</h3>
+  <table class="data-table">
+    <thead><tr><th>Concept</th><th>What to Understand</th><th>When It Matters</th></tr></thead>
+    <tbody>
+      <tr><td><strong>Vertical Scaling</strong></td><td>Bigger server. Simple but has ceiling. SQL DB bottleneck.</td><td>Early stage, low traffic</td></tr>
+      <tr><td><strong>Horizontal Scaling</strong></td><td>More servers. Needs load balancer, stateless design.</td><td>10k+ concurrent users</td></tr>
+      <tr><td><strong>Load Balancer</strong></td><td>Nginx/HAProxy/AWS ALB. Round-robin vs least-connections vs IP-hash.</td><td>Multiple app servers</td></tr>
+      <tr><td><strong>CDN</strong></td><td>Cloudflare/AWS CloudFront. Static assets globally cached. Edge locations.</td><td>Static files, global users</td></tr>
+      <tr><td><strong>Database Replication</strong></td><td>Primary (writes) + Read replicas (reads). Eventual consistency tradeoff.</td><td>Read-heavy applications</td></tr>
+      <tr><td><strong>Database Sharding</strong></td><td>Partition data across multiple DBs. Horizontal vs range sharding.</td><td>100M+ records, write-heavy</td></tr>
+      <tr><td><strong>Caching Layers</strong></td><td>Redis/Memcached. Reduce DB hits. Cache invalidation strategies.</td><td>Repeated expensive queries</td></tr>
+      <tr><td><strong>Message Queues</strong></td><td>RabbitMQ/Kafka. Decouple services. Async processing. Backpressure.</td><td>Background jobs, microservices</td></tr>
+      <tr><td><strong>API Gateway</strong></td><td>Single entry point. Auth, rate limit, routing to microservices.</td><td>Multiple backend services</td></tr>
+      <tr><td><strong>Microservices</strong></td><td>Independent deployable services. Owns its data. Complex but scalable.</td><td>Large teams, independent scaling</td></tr>
+    </tbody>
+  </table>
+
+  <h3 class="subsection">Must-Study System Design Problems</h3>
+  <div class="card-grid">
+    <div class="card"><div class="card-title">Design URL Shortener</div><div class="card-body">Hash generation (Base62), collision handling, analytics, redirect performance. This is the "hello world" of system design.</div></div>
+    <div class="card"><div class="card-title">Design a Chat System</div><div class="card-body">WebSockets, message storage, read receipts, online presence. Real-time = long-polling vs WebSocket vs SSE decision.</div></div>
+    <div class="card"><div class="card-title">Design Instagram/Twitter Feed</div><div class="card-body">Fan-out on write vs read. Timeline cache. Celebrity problem. Sharding by user_id.</div></div>
+    <div class="card"><div class="card-title">Design a Rate Limiter</div><div class="card-body">Token bucket, sliding window, fixed window algorithms. Redis implementation. Distributed rate limiting.</div></div>
+    <div class="card"><div class="card-title">Design an ERP Inventory</div><div class="card-body">Transactional consistency, concurrent stock updates, audit log, warehouse multi-location, FIFO/LIFO costing.</div></div>
+    <div class="card"><div class="card-title">Design a Notification System</div><div class="card-body">Multi-channel (email, SMS, push, in-app). Queue-backed. Template engine. Delivery status tracking.</div></div>
+  </div>
+
+  <div class="alert alert-success" style="margin-top:20px;">
+    <div class="alert-title">Essential Resources for System Design</div>
+    1. "Designing Data-Intensive Applications" by Martin Kleppmann — the bible of distributed systems<br>
+    2. SystemDesignPrimer on GitHub (donnemartin/system-design-primer) — 250k+ stars, comprehensive free resource<br>
+    3. ByteByteGo Newsletter by Alex Xu (free tier) — visual explanations of real systems<br>
+    4. "System Design Interview" book by Alex Xu — Vol 1 and Vol 2
+  </div>
+</section>
+
+<!-- SECTION 13: ERP KNOWLEDGE -->
+<section class="section" id="erp">
+  <div class="section-header">
+    <span class="section-num">14</span>
+    <div>
+      <h2 class="section-title">ERP Business Knowledge</h2>
+      <p class="section-subtitle">Understand the business domain you're building for — this makes you 10x more effective than a pure technologist.</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'erp-modules')">Core Modules</button>
+    <button class="tab-btn" onclick="switchTab(this,'erp-arch')">Architecture</button>
+    <button class="tab-btn" onclick="switchTab(this,'erp-acc')">Accounting Basics</button>
+  </div>
+
+  <div class="tab-pane active" id="erp-modules">
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">📦 Inventory Management</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Items/SKUs, variants, units of measure, categories</li>
+            <li>Stock movements: GRN (Goods Receipt Note), stock adjustment, transfer</li>
+            <li>Costing methods: FIFO, LIFO, Weighted Average — affects P&L</li>
+            <li>Reorder points, minimum stock alerts</li>
+            <li>Warehouse management: bin/shelf locations, barcode integration</li>
+            <li>Batch/lot tracking for pharma/food industries</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">🛒 Purchase Management</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Vendor master: contact, payment terms, credit limit</li>
+            <li>Purchase requisition → Purchase Order → GRN → Bill → Payment</li>
+            <li>3-way matching: PO + GRN + Bill must match before payment</li>
+            <li>Vendor pricing: item-specific pricing, discounts, tax templates</li>
+            <li>Purchase returns: debit note process</li>
+            <li>Multi-currency purchases: exchange rate management</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">💼 Sales Management</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Customer master: credit limit, payment terms, sales rep</li>
+            <li>Quotation → Sales Order → Delivery Note → Invoice → Payment</li>
+            <li>Pricing rules: customer-specific, volume discounts, promotional pricing</li>
+            <li>Sales returns: credit note process</li>
+            <li>Territory management, sales team commissions</li>
+            <li>Partial delivery, backorder management</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">👥 HR & Payroll</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Employee master: departments, designation, joining date, documents</li>
+            <li>Leave management: types, entitlements, approval workflow</li>
+            <li>Attendance: manual + biometric integration concepts</li>
+            <li>Payroll: salary structures, earnings, deductions, net pay</li>
+            <li>Statutory: PF, ESI, TDS, professional tax (India) / equivalent for other regions</li>
+            <li>Payslip generation, bulk salary processing</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">📊 Reports & Dashboards</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Operational reports: stock ledger, purchase register, sales register</li>
+            <li>Financial reports: P&L, Balance Sheet, Cash Flow</li>
+            <li>KPI dashboards: revenue trend, inventory turnover, DSO</li>
+            <li>Drill-down navigation: summary → detail → source document</li>
+            <li>Export: Excel, PDF, CSV — always support all three</li>
+            <li>Scheduled reports: email delivery, automated generation</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">✅ Workflow & Approvals</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Configurable approval workflows: role-based, amount-based</li>
+            <li>Sequential vs parallel approval: understand the difference</li>
+            <li>Email + in-app notifications on approval actions</li>
+            <li>Audit trail: who approved what, when, with what comment</li>
+            <li>Delegation: approve on behalf when approver is on leave</li>
+            <li>SLA monitoring: flag overdue approvals automatically</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="erp-arch">
+    <h3 class="subsection">ERP System Architecture</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">Multi-Tenant Design</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li><strong>Separate DBs per tenant</strong> — most secure, highest cost (Spatie multi-tenancy package)</li>
+            <li><strong>Shared DB, tenant_id column</strong> — cheapest, must enforce in every query</li>
+            <li><strong>Hybrid</strong> — shared DB for small, dedicated for large tenants</li>
+            <li>Always: global middleware that sets tenant context on every request</li>
+            <li>Tenant isolation: one tenant must never see another's data — test this explicitly</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">GST / Tax Engine Design</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>Tax templates: IGST (18%), CGST (9%) + SGST (9%) — India model</li>
+            <li>Apply tax at line item level, not document level</li>
+            <li>Tax exclusive vs inclusive — affects price display and calculation</li>
+            <li>HSN/SAC codes mapped to items for GST returns</li>
+            <li>GSTR-1, GSTR-3B report generation from sales transactions</li>
+            <li>Input Tax Credit (ITC) tracking from purchase transactions</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="alert alert-info" style="margin-top:16px;">
+      <div class="alert-title">Study ERPNext (Open Source) Source Code</div>
+      ERPNext (github.com/frappe/erpnext) is the world's best open-source ERP. Read its source code — specifically the accounts, stock, and HR modules. This will teach you more about ERP architecture than any course. It's built in Python/Frappe but the business logic is universal.
+    </div>
+  </div>
+
+  <div class="tab-pane" id="erp-acc">
+    <h3 class="subsection">Accounting Basics Every ERP Developer Must Know</h3>
+    <div class="two-col">
+      <div class="card">
+        <div class="card-title">The Double-Entry System</div>
+        <div class="card-body">
+          <p style="margin-bottom:10px;">Every transaction has two sides: Debit and Credit. They must always be equal.</p>
+          <ul class="checklist">
+            <li>Assets (Debit increases) — Cash, AR, Inventory, Fixed Assets</li>
+            <li>Liabilities (Credit increases) — AP, Loans, Tax Payable</li>
+            <li>Equity (Credit increases) — Capital, Retained Earnings</li>
+            <li>Revenue (Credit increases) — Sales, Interest Income</li>
+            <li>Expenses (Debit increases) — COGS, Salaries, Rent</li>
+            <li>Example: Sale of ₹10,000: DR Accounts Receivable ₹10,000 / CR Sales Revenue ₹10,000</li>
+          </ul>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-title">Financial Statements a Dev Must Understand</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li><strong>P&L (Income Statement):</strong> Revenue - Expenses = Net Profit. Covers a period.</li>
+            <li><strong>Balance Sheet:</strong> Assets = Liabilities + Equity. Point in time snapshot.</li>
+            <li><strong>Cash Flow Statement:</strong> Operating + Investing + Financing activities. Cash is king.</li>
+            <li><strong>Trial Balance:</strong> All accounts listed with DR/CR balances. Should balance.</li>
+            <li><strong>Chart of Accounts:</strong> Hierarchical list of all accounts in the system. Design this carefully.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 14: DEVOPS -->
+<section class="section" id="devops">
+  <div class="section-header">
+    <span class="section-num">15</span>
+    <div>
+      <h2 class="section-title">DevOps & Deployment Track</h2>
+      <p class="section-subtitle">From "it works on my machine" to production-grade deployment with CI/CD pipelines.</p>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Linux + Server Basics</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>File system navigation, permissions (chmod, chown, sudo)</li>
+          <li>Process management: ps, top, htop, kill, systemctl</li>
+          <li>Network: netstat, ss, curl, wget, ping, nmap basics</li>
+          <li>Text tools: grep, awk, sed, tail -f for log analysis</li>
+          <li>SSH: key-based auth, ssh-agent, port forwarding</li>
+          <li>Cron jobs: syntax, editing, testing</li>
+          <li>Practice: Linux Survival (free), OverTheWire Bandit wargame</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Nginx Configuration</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Server blocks (virtual hosts) — serve multiple apps on one server</li>
+          <li>Reverse proxy to PHP-FPM: upstream fastcgi configuration</li>
+          <li>SSL/TLS: Let's Encrypt with Certbot — always HTTPS</li>
+          <li>Gzip compression — reduce bandwidth by 70%</li>
+          <li>Rate limiting with nginx: limit_req_zone</li>
+          <li>Static file caching: cache-control headers for assets</li>
+          <li>Security headers: X-Frame-Options, Content-Security-Policy</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Docker (Essential)</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Understand: images vs containers vs registries</li>
+          <li>Write Dockerfiles for PHP-FPM + Nginx + MySQL services</li>
+          <li>Docker Compose: multi-service local development environment</li>
+          <li>Docker networks: how services communicate by name</li>
+          <li>Volumes: persistent data for databases</li>
+          <li>Multi-stage builds: slim production images</li>
+          <li>Push to Docker Hub or GitHub Container Registry</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">CI/CD Pipeline</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>GitHub Actions: workflow files, triggers, jobs, steps</li>
+          <li>Pipeline stages: test → build → lint → deploy</li>
+          <li>Secrets management: GitHub Secrets, never hardcode credentials</li>
+          <li>Auto-deploy to Railway/Render on push to main branch</li>
+          <li>PHP specific: run PHPStan, PHPUnit, PHP-CS-Fixer in pipeline</li>
+          <li>Slack/Discord notifications on deploy success or failure</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Git Mastery</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Branching strategies: Gitflow vs trunk-based development</li>
+          <li>Interactive rebase: squash, edit, reorder commits</li>
+          <li>git bisect: binary search for the commit that introduced a bug</li>
+          <li>git stash, git cherry-pick, git reflog — advanced recovery</li>
+          <li>Conventional commits: feat/fix/docs/chore/refactor prefix</li>
+          <li>PR review etiquette: small PRs, clear descriptions, self-review first</li>
+          <li>git hooks: pre-commit lint, pre-push test run</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Monitoring & Observability</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Application monitoring: Sentry (error tracking, free tier)</li>
+          <li>Log aggregation: Papertrail or Logtail (free tier)</li>
+          <li>Uptime monitoring: UptimeRobot (free, checks every 5 min)</li>
+          <li>Performance: Laravel Debugbar (dev), Telescope (dev/staging)</li>
+          <li>Server metrics: Netdata or Grafana + Prometheus (self-hosted)</li>
+          <li>Alert on: 5xx errors, slow queries (>1s), server CPU >80%</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 15: PROJECTS -->
+<section class="section" id="projects">
+  <div class="section-header">
+    <span class="section-num">16</span>
+    <div>
+      <h2 class="section-title">Project Roadmap</h2>
+      <p class="section-subtitle">Build in public. Every project is a portfolio piece, a learning milestone, and a confidence builder.</p>
+    </div>
+  </div>
+
+  <h3 class="subsection">Beginner Projects (Months 1-2)</h3>
+  <div class="card-grid">
+    <div class="project-card">
+      <div class="project-level">🟢 Beginner</div>
+      <div class="project-name">CLI Task Manager</div>
+      <div class="project-desc">A command-line to-do app in pure PHP. No framework. Shows you can code without scaffolding. Add/list/delete/complete tasks. Persist to JSON file.</div>
+      <div class="tech-tags"><span class="tech-tag">Pure PHP 8</span><span class="tech-tag">CLI</span><span class="tech-tag">JSON</span><span class="tech-tag">OOP</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-level">🟢 Beginner</div>
+      <div class="project-name">Vanilla JS Quiz App</div>
+      <div class="project-desc">Multi-step quiz with timer, score tracking, and results page. No frameworks. Proves you understand DOM, events, async, and state management without React.</div>
+      <div class="tech-tags"><span class="tech-tag">Vanilla JS</span><span class="tech-tag">HTML/CSS</span><span class="tech-tag">LocalStorage</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-level">🟢 Beginner</div>
+      <div class="project-name">SQL Analytics Dashboard</div>
+      <div class="project-desc">A static PHP page querying a MySQL database with complex SQL — JOINs, GROUP BY, window functions. Shows SQL mastery without hiding behind ORM.</div>
+      <div class="tech-tags"><span class="tech-tag">PHP</span><span class="tech-tag">MySQL</span><span class="tech-tag">PDO</span><span class="tech-tag">Raw SQL</span></div>
+    </div>
+  </div>
+
+  <h3 class="subsection">Intermediate Projects (Months 3-5)</h3>
+  <div class="card-grid">
+    <div class="project-card">
+      <div class="project-level">🟡 Intermediate</div>
+      <div class="project-name">Project Management API</div>
+      <div class="project-desc">Full REST API with teams, projects, tasks, comments, file attachments. JWT auth, role-based access (Admin/Member), email notifications via queues. Full test coverage.</div>
+      <div class="tech-tags"><span class="tech-tag">Laravel 11</span><span class="tech-tag">MySQL</span><span class="tech-tag">Redis</span><span class="tech-tag">Laravel Queues</span><span class="tech-tag">PHPUnit</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-level">🟡 Intermediate</div>
+      <div class="project-name">React SaaS Dashboard</div>
+      <div class="project-desc">Frontend for the Project Management API. Charts (Recharts), data tables, Kanban board, team management UI. TypeScript + React Query for all data fetching.</div>
+      <div class="tech-tags"><span class="tech-tag">React</span><span class="tech-tag">TypeScript</span><span class="tech-tag">React Query</span><span class="tech-tag">Tailwind</span><span class="tech-tag">Recharts</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-level">🟡 Intermediate</div>
+      <div class="project-name">Inventory Management Module</div>
+      <div class="project-desc">Full inventory system: products, categories, suppliers, stock movements (in/out/transfer), stock valuation (FIFO), low stock alerts via email, dashboard.</div>
+      <div class="tech-tags"><span class="tech-tag">Laravel</span><span class="tech-tag">Livewire</span><span class="tech-tag">MySQL</span><span class="tech-tag">Redis</span><span class="tech-tag">PDF Export</span></div>
+    </div>
+  </div>
+
+  <h3 class="subsection">Advanced Production Projects (Months 6-12)</h3>
+  <div class="card-grid">
+    <div class="project-card">
+      <div class="project-level">🔴 Advanced</div>
+      <div class="project-name">Full-Stack ERP System</div>
+      <div class="project-desc">Multi-tenant ERP with: Inventory, Purchase, Sales, Accounts Receivable/Payable, HR, Payroll, and GST reports. Approval workflows, role-based permissions, real-time notifications, and a white-label dashboard.</div>
+      <div class="tech-tags"><span class="tech-tag">Laravel</span><span class="tech-tag">React+TS</span><span class="tech-tag">Redis</span><span class="tech-tag">MySQL</span><span class="tech-tag">Multi-tenant</span><span class="tech-tag">Docker</span><span class="tech-tag">GitHub CI/CD</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-level">🔴 Advanced</div>
+      <div class="project-name">SaaS Subscription Platform</div>
+      <div class="project-desc">Billing system with Stripe integration, plan management, usage-based billing, metered features, customer portal, dunning management, and churn analytics.</div>
+      <div class="tech-tags"><span class="tech-tag">Laravel Cashier</span><span class="tech-tag">Stripe</span><span class="tech-tag">React</span><span class="tech-tag">Redis</span><span class="tech-tag">Webhooks</span></div>
+    </div>
+    <div class="project-card">
+      <div class="project-level">🔴 Advanced</div>
+      <div class="project-name">Real-Time Collaboration Tool</div>
+      <div class="project-desc">Document editor with live cursors, comments, version history, WebSocket presence indicators. Laravel Reverb (native WebSockets) + React frontend.</div>
+      <div class="tech-tags"><span class="tech-tag">Laravel Reverb</span><span class="tech-tag">WebSockets</span><span class="tech-tag">React</span><span class="tech-tag">Operational Transform</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 16: RESOURCES -->
+<section class="section" id="resources">
+  <div class="section-header">
+    <span class="section-num">17</span>
+    <div>
+      <h2 class="section-title">Exact Resources List</h2>
+      <p class="section-subtitle">Free first. Paid only if genuinely worth it. No filler.</p>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="switchTab(this,'res-books')">Books</button>
+    <button class="tab-btn" onclick="switchTab(this,'res-yt')">YouTube</button>
+    <button class="tab-btn" onclick="switchTab(this,'res-practice')">Practice</button>
+    <button class="tab-btn" onclick="switchTab(this,'res-courses')">Courses</button>
+  </div>
+
+  <div class="tab-pane active" id="res-books">
+    <h3 class="subsection">Books — Ranked by Priority</h3>
+    <table class="data-table">
+      <thead><tr><th>#</th><th>Book</th><th>Topic</th><th>Cost</th><th>When to Read</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td><strong>Clean Code</strong> — Robert Martin</td><td>Code Quality</td><td><span class="badge badge-green">Free PDF</span></td><td>Month 1</td></tr>
+        <tr><td>2</td><td><strong>You Don't Know JS</strong> — Kyle Simpson</td><td>JavaScript</td><td><span class="badge badge-green">Free (GitHub)</span></td><td>Month 2-3</td></tr>
+        <tr><td>3</td><td><strong>Cracking the Coding Interview</strong> — Gayle McDowell</td><td>DSA + Interviews</td><td><span class="badge badge-orange">Paid (~$35)</span></td><td>Month 3 onwards</td></tr>
+        <tr><td>4</td><td><strong>Laravel Up & Running</strong> — Matt Stauffer</td><td>Laravel</td><td><span class="badge badge-orange">Paid (~$49)</span></td><td>Month 2-4</td></tr>
+        <tr><td>5</td><td><strong>Designing Data-Intensive Applications</strong> — Martin Kleppmann</td><td>System Design</td><td><span class="badge badge-orange">Paid (~$50)</span></td><td>Month 5 onwards</td></tr>
+        <tr><td>6</td><td><strong>The Pragmatic Programmer</strong> — Hunt & Thomas</td><td>Engineering Mindset</td><td><span class="badge badge-orange">Paid (~$40)</span></td><td>Month 2</td></tr>
+        <tr><td>7</td><td><strong>System Design Interview Vol 1 & 2</strong> — Alex Xu</td><td>System Design</td><td><span class="badge badge-orange">Paid (~$30 each)</span></td><td>Month 8 onwards</td></tr>
+        <tr><td>8</td><td><strong>PHP: The Right Way</strong> — phptherightway.com</td><td>PHP</td><td><span class="badge badge-green">Free</span></td><td>Month 1</td></tr>
+        <tr><td>9</td><td><strong>JavaScript Info</strong> — javascript.info</td><td>JavaScript</td><td><span class="badge badge-green">Free</span></td><td>Month 2</td></tr>
+        <tr><td>10</td><td><strong>Database Internals</strong> — Alex Petrov</td><td>DB Deep Dive</td><td><span class="badge badge-orange">Paid</span></td><td>Month 9 onwards</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="tab-pane" id="res-yt">
+    <h3 class="subsection">YouTube Channels — Only the Best</h3>
+    <div class="card-grid">
+      <div class="card">
+        <div class="card-title">NeetCode</div>
+        <div class="card-body">DSA problems explained with patterns. Best channel for LeetCode. 250+ videos, all free. Watch EVERY single video.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Fireship</div>
+        <div class="card-body">100-second concept intros + deeper dives. Best for staying current on tech trends. Modern JS/TS/web content.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Laracasts</div>
+        <div class="card-body">Jeffrey Way's PHP/Laravel channel. Some free content, paid subscription for full access. Industry gold standard.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">ByteByteGo</div>
+        <div class="card-body">Alex Xu's system design channel. Visual explanations of how large-scale systems work. Essential for interviews.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Traversy Media</div>
+        <div class="card-body">Brad Traversy's project-based tutorials. React, PHP, full-stack projects. Good for following along to solidify concepts.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Hussein Nasser</div>
+        <div class="card-body">Deep backend engineering content. Postgres internals, WebSockets, HTTP/2, TLS. Makes you think like a backend architect.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">The Primeagen</div>
+        <div class="card-body">Raw engineering content. Algorithms, Neovim, code quality, engineering culture. Challenging but rewarding.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Laravel Daily</div>
+        <div class="card-body">Povilas Korop's real-world Laravel patterns. Short, practical, opinionated. Watch for code review content.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-pane" id="res-practice">
+    <h3 class="subsection">Practice Platforms — Exact Usage</h3>
+    <a href="https://leetcode.com" class="resource-link">
+      <div class="resource-icon" style="background:rgba(245,166,35,0.1)">⚡</div>
+      <div class="resource-meta"><span class="resource-name">LeetCode</span><span class="resource-desc">Primary DSA practice. 1 problem/day minimum. Study in order: NeetCode 150 list.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://neetcode.io/roadmap" class="resource-link">
+      <div class="resource-icon" style="background:rgba(124,106,245,0.1)">🗺️</div>
+      <div class="resource-meta"><span class="resource-name">NeetCode Roadmap</span><span class="resource-desc">Follow this roadmap exactly. 150 curated problems in perfect learning order.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://sqlzoo.net" class="resource-link">
+      <div class="resource-icon" style="background:rgba(20,184,166,0.1)">🗄️</div>
+      <div class="resource-meta"><span class="resource-name">SQLZoo</span><span class="resource-desc">Interactive SQL exercises from beginner to advanced. Best SQL practice site.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://www.hackerrank.com/domains/php" class="resource-link">
+      <div class="resource-icon" style="background:rgba(34,197,94,0.1)">💚</div>
+      <div class="resource-meta"><span class="resource-name">HackerRank PHP Track</span><span class="resource-desc">PHP-specific challenges. Complete the entire PHP track to verify fundamentals.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://www.pramp.com" class="resource-link">
+      <div class="resource-icon" style="background:rgba(244,63,94,0.1)">🎤</div>
+      <div class="resource-meta"><span class="resource-name">Pramp</span><span class="resource-desc">Free mock interviews with real developers. Essential for month 8-12 interview prep.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+    <a href="https://exercism.org/tracks/php" class="resource-link">
+      <div class="resource-icon" style="background:rgba(251,146,60,0.1)">🏋️</div>
+      <div class="resource-meta"><span class="resource-name">Exercism PHP Track</span><span class="resource-desc">Mentor-reviewed PHP exercises. Get real code feedback from experts.</span></div>
+      <span class="badge badge-green">Free</span>
+    </a>
+  </div>
+
+  <div class="tab-pane" id="res-courses">
+    <h3 class="subsection">Courses — Free First, Paid If Worth It</h3>
+    <table class="data-table">
+      <thead><tr><th>Course</th><th>Platform</th><th>Topic</th><th>Cost</th></tr></thead>
+      <tbody>
+        <tr><td>CS50x — Harvard</td><td>edX (free audit)</td><td>Computer Science Fundamentals</td><td><span class="badge badge-green">Free</span></td></tr>
+        <tr><td>The Odin Project</td><td>theodinproject.com</td><td>Full-Stack Web Dev</td><td><span class="badge badge-green">Free</span></td></tr>
+        <tr><td>React — Official Docs Tutorial</td><td>react.dev</td><td>React Fundamentals</td><td><span class="badge badge-green">Free</span></td></tr>
+        <tr><td>TypeScript Handbook</td><td>typescriptlang.org</td><td>TypeScript</td><td><span class="badge badge-green">Free</span></td></tr>
+        <tr><td>Laravel Bootcamp</td><td>laravel.com/bootcamp</td><td>Laravel + Inertia</td><td><span class="badge badge-green">Free</span></td></tr>
+        <tr><td>Laracasts Full Laravel</td><td>laracasts.com</td><td>Laravel Complete</td><td><span class="badge badge-orange">$99/yr</span></td></tr>
+        <tr><td>System Design Fundamentals</td><td>educative.io/grokking</td><td>System Design</td><td><span class="badge badge-orange">$59/mo</span></td></tr>
+        <tr><td>Zero to Mastery DSA</td><td>udemy.com</td><td>DSA</td><td><span class="badge badge-gold">~$15 sale</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 17: AI USAGE RULES -->
+<section class="section" id="aiusage">
+  <div class="section-header">
+    <span class="section-num">18</span>
+    <div>
+      <h2 class="section-title">AI Usage Rules</h2>
+      <p class="section-subtitle">Use AI like a senior engineer — as a powerful tool, not a crutch.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <div class="alert alert-danger">
+        <div class="alert-title">❌ NEVER Use AI For</div>
+        <ul class="checklist">
+          <li>Writing code for DSA problems — this kills your growth 100%</li>
+          <li>Debugging before you've spent 30 minutes trying yourself</li>
+          <li>Writing boilerplate code you haven't written manually at least once</li>
+          <li>Understanding concepts — AI summaries are shallow; read documentation</li>
+          <li>Writing tests — learn to write tests yourself first</li>
+          <li>Your first implementation of any new pattern</li>
+        </ul>
+      </div>
+    </div>
+    <div>
+      <div class="alert alert-success">
+        <div class="alert-title">✅ USE AI For</div>
+        <ul class="checklist">
+          <li>Reviewing code you've already written — "review this for issues"</li>
+          <li>Explaining error messages after you've researched them</li>
+          <li>Generating test data / seed data / boilerplate config files</li>
+          <li>Second opinion on architecture after you've made a decision</li>
+          <li>Documentation writing after you understand the code</li>
+          <li>Translating concepts between languages (PHP → TypeScript equivalent)</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <h3 class="subsection">The 25-Minute Rule</h3>
+  <div class="card">
+    <div class="card-title">Before Asking AI Anything</div>
+    <div class="card-body">
+      <ul class="checklist">
+        <li><strong>Step 1 (5 min):</strong> Read the error message completely. Google the exact error string.</li>
+        <li><strong>Step 2 (10 min):</strong> Read the official documentation for the function/method involved.</li>
+        <li><strong>Step 3 (5 min):</strong> Add console.log / var_dump at every step. Print the actual values.</li>
+        <li><strong>Step 4 (5 min):</strong> Write down your hypothesis: "I think the problem is X because Y."</li>
+        <li><strong>If still stuck:</strong> Now you can ask AI — and your question will be 10x better because you know the context.</li>
+        <li>The 25-minute investment also means you often solve it yourself, which builds memory far stronger than AI answers.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 18: DEBUGGING -->
+<section class="section" id="debugging">
+  <div class="section-header">
+    <span class="section-num">19</span>
+    <div>
+      <h2 class="section-title">Debugging Mastery</h2>
+      <p class="section-subtitle">The single skill that separates "can code" from "can engineer". Debug like a detective.</p>
+    </div>
+  </div>
+
+  <h3 class="subsection">The Scientific Debugging Method</h3>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-period">Step 1</div>
+      <div class="timeline-title">Reproduce Reliably</div>
+      <div class="timeline-desc">If you can't reproduce the bug consistently, you can't fix it. Find the exact steps, data, and conditions that trigger it every time. Write them down.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Step 2</div>
+      <div class="timeline-title">Read the Error Completely</div>
+      <div class="timeline-desc">The full stack trace, not just the last line. The error usually tells you exactly what's wrong — most developers don't read past the first line. Read every line.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Step 3</div>
+      <div class="timeline-title">Form a Hypothesis</div>
+      <div class="timeline-desc">Don't randomly change code. State: "I believe the bug is in [location] because [reason]." Write it down. This forces clear thinking.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Step 4</div>
+      <div class="timeline-title">Isolate the Problem</div>
+      <div class="timeline-desc">Binary search the codebase. Is the bug in the frontend or backend? Is it in the database or application layer? Is it in function A or function B? Cut the problem in half each time.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Step 5</div>
+      <div class="timeline-title">Print → Test → Analyze</div>
+      <div class="timeline-desc">Add logging at every step of your hypothesis path. Check actual vs expected values. In PHP: <span class="inline-code">dd()</span>, <span class="inline-code">Log::debug()</span>. In JS: <span class="inline-code">console.log()</span> with labels.</div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-period">Step 6</div>
+      <div class="timeline-title">Fix + Test + Understand</div>
+      <div class="timeline-desc">Fix only the minimum change needed. Then test not just the fixed case but adjacent cases. Most importantly: understand WHY the bug existed. This prevents future bugs.</div>
+    </div>
+  </div>
+
+  <div class="two-col" style="margin-top:20px;">
+    <div class="card">
+      <div class="card-title">PHP Debugging Tools</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li><span class="inline-code">dd($variable)</span> — dump and die in Laravel</li>
+          <li><span class="inline-code">Log::debug('label', ['data' => $data])</span></li>
+          <li>Xdebug + VS Code — step debugger, breakpoints, variable watch</li>
+          <li>Laravel Telescope — request/response inspector, query log</li>
+          <li>Laravel Debugbar — in-browser query and timing panel</li>
+          <li>PHP error_log() for production debugging</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">JavaScript Debugging Tools</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Chrome DevTools: breakpoints, call stack, watch expressions</li>
+          <li><span class="inline-code">console.table(array)</span> for array inspection</li>
+          <li><span class="inline-code">console.trace()</span> to see call stack at any point</li>
+          <li>Network tab: inspect API requests/responses exactly</li>
+          <li>React DevTools: component state, props inspector</li>
+          <li>Redux DevTools: time-travel debugging for state</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 19: INTERVIEW PREP -->
+<section class="section" id="interview">
+  <div class="section-header">
+    <span class="section-num">20</span>
+    <div>
+      <h2 class="section-title">Interview Preparation</h2>
+      <p class="section-subtitle">A systematic approach to FAANG-level technical interviews — starting month 8.</p>
+    </div>
+  </div>
+
+  <div class="alert alert-warning">
+    <div class="alert-title">⚠️ Don't Start Interview Prep Too Early</div>
+    Start interview prep at month 8-9, not month 1. Skills first, interview polish later. Many engineers prep interviews before having skills — they get lucky once and plateau. Build real skills first.
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title">Phase 1: DSA Interview Prep (Weeks 1-6)</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Complete NeetCode 150 — all patterns at medium difficulty</li>
+          <li>Timed sessions: 35 minutes per problem, no hints</li>
+          <li>Talk through your thinking out loud — practice this alone</li>
+          <li>After solving: analyze time/space complexity out loud</li>
+          <li>Re-solve problems from 2 weeks ago — retention check</li>
+          <li>Target: 200+ solved, 70% acceptance rate on medium</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 2: System Design (Weeks 4-8)</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>Design 1 system per week: URL shortener, Uber, WhatsApp, Netflix</li>
+          <li>Use the framework: Requirements → Estimation → API design → HLD → LLD → Bottlenecks</li>
+          <li>Draw diagrams on paper — practice whiteboard speed</li>
+          <li>Watch ByteByteGo for each system, then design it yourself without looking</li>
+          <li>Record yourself explaining — painful but extremely effective</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Phase 3: Behavioral (Weeks 5-8)</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>STAR method: Situation, Task, Action, Result — for every story</li>
+          <li>Prepare 8 situations from your work — difficult bug, conflict, leadership, failure</li>
+          <li>Write each story down, time it (2-3 minutes max per answer)</li>
+          <li>Research the company: product, tech stack, engineering blog, values</li>
+          <li>Questions to ask them: engineering culture, tech debt policy, growth path</li>
+        </ul>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">Mock Interviews (Weeks 6-8)</div>
+      <div class="card-body">
+        <ul class="checklist">
+          <li>3 mock interviews per week on Pramp.com (free) or Interviewing.io</li>
+          <li>Review each session recording — painful, necessary</li>
+          <li>Ask trusted developer friends for mock sessions</li>
+          <li>Record yourself solving LeetCode — watch the playback</li>
+          <li>Target companies: prepare company-specific questions from Glassdoor + Leetcode discuss</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 20: PORTFOLIO -->
+<section class="section" id="portfolio">
+  <div class="section-header">
+    <span class="section-num">21</span>
+    <div>
+      <h2 class="section-title">Portfolio & Career Strategy</h2>
+      <p class="section-subtitle">Build a portfolio that gets you interviews, not just compliments.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="subsection">GitHub Profile (Month 2 Onwards)</h3>
+      <ul class="checklist">
+        <li><strong>Profile README:</strong> Short bio, tech stack, current focus, links. Keep it simple and professional.</li>
+        <li><strong>Green contribution graph:</strong> Commit something every day, even if it's 1 line or a documentation fix.</li>
+        <li><strong>Pinned repos:</strong> Pin your 6 best projects — not all of them. Quality over quantity.</li>
+        <li><strong>README quality:</strong> Every project needs: description, live demo link, tech stack, setup instructions, screenshots. This is your first impression.</li>
+        <li><strong>Commit messages:</strong> Conventional commits format. Tells a story of professional engineering.</li>
+        <li><strong>Open source contributions:</strong> Even 1 PR to a popular Laravel package adds credibility.</li>
+      </ul>
+
+      <h3 class="subsection">Technical Blog (Month 4 Onwards)</h3>
+      <ul class="checklist">
+        <li>Write on <strong>dev.to</strong> (free, good SEO) or <strong>Medium</strong> (larger audience)</li>
+        <li>Topics: things you just learned, bugs you fixed, tutorials for what you built</li>
+        <li>One post per month minimum — quality matters more than frequency</li>
+        <li>Share on LinkedIn, Twitter/X — builds personal brand over time</li>
+        <li>Repurpose into YouTube shorts or Twitter threads for more reach</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="subsection">Resume Strategy</h3>
+      <div class="card">
+        <div class="card-title">Resume Rules (Non-Negotiable)</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>1 page maximum until 7+ years experience</li>
+            <li>Every bullet: Action verb + Metric + Result. "Reduced query time by 60% by adding composite index" not "Optimized database"</li>
+            <li>Show GitHub link, LinkedIn, deployed project links — make it clickable in PDF</li>
+            <li>Skills section: honest. Don't list "React" if you've only done 1 tutorial.</li>
+            <li>ATS-friendly: Use standard section headers, no tables/columns, .docx format for ATS, PDF for humans</li>
+            <li>Tailor for each application: mirror the job description keywords</li>
+          </ul>
+        </div>
+      </div>
+
+      <h3 class="subsection">Remote Job Readiness</h3>
+      <ul class="checklist">
+        <li><strong>LinkedIn:</strong> Complete profile, "Open to Work" (private), connect with 20 engineers/recruiters per week</li>
+        <li><strong>Job boards:</strong> Remotive.com, Remote.co, We Work Remotely, Toptal (for top 3%), Turing.com</li>
+        <li><strong>English communication:</strong> Write emails in English daily, join English-speaking dev communities on Discord, watch English tech content without subtitles</li>
+        <li><strong>Time zone strategy:</strong> IST overlaps well with EU mornings and US evenings — leverage this</li>
+        <li><strong>Rate:</strong> Research Glassdoor + Levels.fyi for market rates. Don't undervalue PHP/Laravel skills.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 21: MISTAKES TO AVOID -->
+<section class="section" id="mistakes">
+  <div class="section-header">
+    <span class="section-num">22</span>
+    <div>
+      <h2 class="section-title">Mistakes to Avoid</h2>
+      <p class="section-subtitle">The exact pitfalls that slow down 90% of self-improving developers.</p>
+    </div>
+  </div>
+
+  <div class="card-grid">
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Tutorial Hell</div>
+      <div class="card-body">Watching 5 React tutorials without building anything. Tutorials feel like learning but the knowledge evaporates in 48 hours. For every 1 hour of tutorial, build for 2 hours.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Random LeetCode Grinding</div>
+      <div class="card-body">Solving 300 random problems is worse than solving 150 in a specific order by pattern. Use NeetCode 150, not random daily challenges as your main practice.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Framework Before Language</div>
+      <div class="card-body">Learning React before JavaScript, or Laravel before PHP. When something breaks, you have no foundation to debug. Language first. Always.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Shiny Object Syndrome</div>
+      <div class="card-body">Switching from Laravel to Django to Rails every month. Pick one backend stack and go deep. Depth beats breadth for the first 3 years. PHP/Laravel is a great choice.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Not Writing Tests</div>
+      <div class="card-body">Professional engineers write tests. Starting projects without tests creates technical debt that kills velocity. Write at least feature tests for every API endpoint from month 3.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Waiting for Perfection</div>
+      <div class="card-body">Spending 2 weeks "planning" a project instead of starting. Start with the simplest possible version that proves the core idea. Ship, learn, iterate.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Not Reading Error Messages</div>
+      <div class="card-body">Copying the error title into Google without reading the full message first. Stack traces tell you the exact line, file, and call chain. Read them completely.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Skipping Version Control Hygiene</div>
+      <div class="card-body">"updated stuff" commit messages. Pushing directly to main. No .gitignore. These habits mark you as junior. Discipline in version control signals professionalism.</div>
+    </div>
+    <div class="card">
+      <div class="card-title" style="color:var(--red)">Learning Without Building</div>
+      <div class="card-body">Reading Clean Code without applying it to a real project. Reading about Redis without setting it up. Every concept must be applied within 48 hours or it evaporates.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 22: FINAL CHECKLIST -->
+<section class="section" id="checklist">
+  <div class="section-header">
+    <span class="section-num">23</span>
+    <div>
+      <h2 class="section-title">Final Action Checklist</h2>
+      <p class="section-subtitle">Start today. Not Monday. Not next month. Today.</p>
+    </div>
+  </div>
+
+  <div class="two-col">
+    <div>
+      <h3 class="subsection">Do These TODAY</h3>
+      <ul class="checklist">
+        <li>Install Obsidian and create your engineering knowledge base</li>
+        <li>Create a LeetCode account and solve 1 easy array problem without AI</li>
+        <li>Read phptherightway.com — first 3 chapters</li>
+        <li>Set up a local PHP 8.3 development environment (Laravel Herd on Mac, or manual on Linux)</li>
+        <li>Create a private GitHub repo: "daily-code-journal" — commit your first note</li>
+        <li>Block social media from 6am-9am and 6pm-9pm using Cold Turkey or Freedom app</li>
+        <li>Write down your 12-month goal in specific terms: "By [date], I will [specific role] at [type of company] earning [salary]"</li>
+      </ul>
+
+      <h3 class="subsection">Do These This Week</h3>
+      <ul class="checklist">
+        <li>Solve 5 LeetCode easy problems — Arrays topic — without AI</li>
+        <li>Write a PHP class from scratch: a BankAccount with deposit/withdraw/balance methods</li>
+        <li>Install MySQL locally and create a database for a library system — 5 tables, proper foreign keys</li>
+        <li>Watch NeetCode's Arrays and Hashing playlist (8 videos)</li>
+        <li>Read Clean Code chapters 1-3 and apply 1 principle to existing code you've written</li>
+        <li>Set up Xdebug in your local environment and step through 1 existing function</li>
+      </ul>
+    </div>
+    <div>
+      <h3 class="subsection">Do These This Month</h3>
+      <ul class="checklist">
+        <li>Complete 30 LeetCode easy problems across arrays, strings, hashmaps</li>
+        <li>Build the CLI Task Manager project in pure PHP</li>
+        <li>Read PHP The Right Way completely</li>
+        <li>Design and build an e-commerce database schema with proper normalization</li>
+        <li>Build a raw PHP REST API (no framework) with 5 endpoints</li>
+        <li>Deploy something — anything — to a live server (Railway.app free tier)</li>
+        <li>Publish your first technical note or blog post</li>
+        <li>Spend 0 hours asking AI to write code for you during learning sessions</li>
+      </ul>
+
+      <h3 class="subsection">Track Your Progress</h3>
+      <div class="card">
+        <div class="card-title">Weekly Review Questions</div>
+        <div class="card-body">
+          <ul class="checklist">
+            <li>How many problems did I solve without AI this week?</li>
+            <li>What new concept did I deeply understand (not just use)?</li>
+            <li>What did I build that I couldn't build last week?</li>
+            <li>What mistake did I make, and what did it teach me?</li>
+            <li>Am I spending more time building or more time watching tutorials?</li>
+            <li>Did I commit code every day this week?</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="alert alert-success" style="margin-top:32px;">
+    <div class="alert-title">🏁 The Final Word From Your Mentor</div>
+    You are not starting from zero. You have 3 years of real-world context — that's a foundation most CS graduates don't have. What you need is structured, disciplined, fundamentals-first rebuilding. The developers who make it aren't smarter than you. They're more consistent. They show up every day. They struggle through the hard problems instead of asking AI. They write the same function 10 times until it's in their muscle memory. <strong>You already know what to do. The question is whether you'll do it daily, without excuses, for 365 days.</strong> If yes: a year from now, you'll look back at this roadmap and realize you've exceeded it.
+  </div>
+</section>
+
+<footer class="footer">
+  <p>Elite Engineer Roadmap — Built for developers who want to be genuinely great.</p>
+  <p style="margin-top:8px; color:var(--text3)">Host on GitHub Pages: upload this file → Settings → Pages → Deploy from branch</p>
+</footer>
+
+</main>
+
+<script>
+// Tab switching
+function switchTab(btn, paneId) {
+  const container = btn.closest('.section') || btn.closest('.card');
+  if (!container) return;
+
+  container.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  container.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+
+  btn.classList.add('active');
+  const pane = document.getElementById(paneId);
+  if (pane) pane.classList.add('active');
+}
+
+// Active nav link on scroll
+const navLinks = document.querySelectorAll('.nav-link[href^="#"]');
+const sections = document.querySelectorAll('section[id], .section[id]');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const id = entry.target.id;
+      navLinks.forEach(link => {
+        link.classList.toggle('active', link.getAttribute('href') === '#' + id);
+      });
+    }
+  });
+}, { threshold: 0.15, rootMargin: '-80px 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+
+// Reading progress
+const readProgress = document.getElementById('readProgress');
+const readLabel = document.getElementById('readLabel');
+window.addEventListener('scroll', () => {
+  const scrollTop = document.documentElement.scrollTop;
+  const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+  const pct = Math.round((scrollTop / scrollHeight) * 100);
+  if (readProgress) {
+    readProgress.style.width = pct + '%';
+    readLabel.textContent = pct + '% read';
+  }
+});
+
+// Mobile sidebar
+const toggle = document.getElementById('mobileToggle');
+const sidebar = document.getElementById('sidebar');
+const overlay = document.getElementById('overlay');
+
+toggle?.addEventListener('click', () => {
+  sidebar.classList.toggle('open');
+  overlay.classList.toggle('open');
+});
+
+overlay?.addEventListener('click', () => {
+  sidebar.classList.remove('open');
+  overlay.classList.remove('open');
+});
+
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('open');
+  });
+});
+
+// Animate sections on scroll
+const animObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('animate-in');
+      animObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.05 });
+
+document.querySelectorAll('.card, .timeline-item, .skill-node, .project-card').forEach(el => {
+  animObserver.observe(el);
+});
+</script>
+</body>
+</html>
